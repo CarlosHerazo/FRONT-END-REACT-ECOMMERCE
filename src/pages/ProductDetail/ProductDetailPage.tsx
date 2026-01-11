@@ -15,7 +15,7 @@ export const ProductDetailPage = () => {
   const { product, loading, error } = useProduct(id || '');
   const [quantity, setQuantity] = useState(1);
 
-  const handleAddToCart = (productId: string) => {
+  const handleAddToCart = (_productId: string) => {
     if (!product) return;
 
     // Add items to cart based on quantity
@@ -33,7 +33,7 @@ export const ProductDetailPage = () => {
     showSuccess(`${quantity} x ${product.name} added to cart!`);
   };
 
-  const handleBuyNow = (productId: string) => {
+  const handleBuyNow = (_productId: string) => {
     if (!product) return;
 
     // Add items to cart

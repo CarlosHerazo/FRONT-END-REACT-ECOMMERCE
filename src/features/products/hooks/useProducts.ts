@@ -27,8 +27,8 @@ export const useProducts = (): UseProductsReturn => {
   });
 
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [_activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [_searchQuery, setSearchQuery] = useState<string>('');
 
   const fetchProducts = useCallback(async () => {
     setState((prev) => ({ ...prev, loading: true, error: null }));

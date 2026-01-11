@@ -7,7 +7,7 @@ interface IconProps {
   filled?: boolean;
 }
 
-const Icon: React.FC<IconProps> = ({ name, className = '', size, filled = false }) => {
+const Icon: React.FC<IconProps> = ({ name, className = '', size, filled: _filled = false }) => {
   const style = size ? { fontSize: `${size}px` } : undefined;
 
   return (

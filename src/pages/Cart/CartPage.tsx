@@ -21,8 +21,8 @@ export const CartPage = () => {
 
   // State for email modal
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  const [customerEmail, setCustomerEmail] = useState<string>('');
-  const [isExistingCustomer, setIsExistingCustomer] = useState(false);
+  const [_customerEmail, setCustomerEmail] = useState<string>('');
+  const [_isExistingCustomer, setIsExistingCustomer] = useState(false);
 
   // Obtener items del carrito desde Redux
   const cartItems = useAppSelector((state) => state.cart.items);
