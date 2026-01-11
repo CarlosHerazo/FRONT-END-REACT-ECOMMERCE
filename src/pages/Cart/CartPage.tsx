@@ -31,19 +31,17 @@ export const CartPage = () => {
    const handleEmailSubmit = async (email: string, isExisting: boolean, newCustomerData?: NewCustomerData): Promise<void> => {
     setCustomerEmail(email);
     setIsExistingCustomer(isExisting);
-
-    console.log(`Customer email: ${email}, Existing: ${isExisting}`);
-
     let customerData = null;
-
+    console.log('Email submitted:', email, 'Is existing:', isExisting, 'New customer data:', newCustomerData);
     try {
       if (isExisting) {
         // Cliente existente - buscar sus datos
         console.log('Cliente existente - buscar datos');
-        const customers = await clientsService.getClients(email);
-        if (customers.length > 0) {
-          customerData = customers[0];
-          showInfo(`Welcome back, ${customerData.fullName}!`);
+        const customers = await clientsService.getClientByEmail({email:email});
+        console.log('Datos del cliente encontrado:', customers);
+        if (customers) {
+          customerData = customers;
+          showInfo(`Welcome back, ${customers.fullName}!`);
         }
       } else if (newCustomerData) {
         // Nuevo cliente - crear en el backend
@@ -56,8 +54,6 @@ export const CartPage = () => {
           country: newCustomerData.country,
           postalCode: newCustomerData.postalCode
         });
-
-        console.log('Cliente creado exitosamente:', createdClient);
         customerData = createdClient;
         showSuccess(`Account created successfully! Welcome, ${newCustomerData.fullName}!`);
       }

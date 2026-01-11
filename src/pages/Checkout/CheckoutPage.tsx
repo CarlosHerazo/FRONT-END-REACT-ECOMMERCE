@@ -1,9 +1,3 @@
-/**
- * CheckoutPage Component
- * Handles the checkout process with payment and shipping information
- * Now using useCheckout hook for all business logic
- */
-
 import { CreditCardForm } from '../../features/checkout/components/CreditCardForm/CreditCardForm';
 import { CustomerDataForm } from '../../features/checkout/components/CustomerDataForm/CustomerDataForm';
 import { OrderSummary } from '../../features/checkout/components/OrderSummary/OrderSummary';
