@@ -1,7 +1,8 @@
 import React from 'react';
-import type { CartItem } from '../../../../features/cart/types/cart.types';
+import type { CartItem } from '../../../cart/types/cart.types';
 import styles from './OrderSummary.module.css';
 import Icon from '../../../../shared/ui/Icon';
+import { formatPrice } from '../../../../utils/utils';
 
 interface OrderSummaryProps {
   items: CartItem[];
@@ -18,12 +19,6 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
   tax,
   total,
 }) => {
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(price);
-  };
 
   return (
     <div className={styles.orderSummary}>

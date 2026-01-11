@@ -135,8 +135,15 @@
 }
 
 .testCardStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #6b7280;
   font-size: 0.75rem;
   font-weight: 500;
+}
+.testCardStatus > span:first-child {
+  font-size: 1rem;
 }
 
 .errorMessage {
@@ -153,6 +160,32 @@
 
 .errorMessage > span:first-child {
   font-size: 1.5rem;
+}
+
+.processingMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.5rem;
+  color: #1e40af;
+  font-size: 0.9375rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.processingMessage > span:first-child {
+  font-size: 1.5rem;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .placeOrderButton {

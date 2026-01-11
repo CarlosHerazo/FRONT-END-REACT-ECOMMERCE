@@ -1,0 +1,98 @@
+/**
+ * HomePage Styles
+ * Converted from Tailwind CSS to CSS Modules
+ */
+
+/* Main container */
+.homePage {
+  padding: 0 1rem;
+}
+
+/* Header section */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Medium screens and up */
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+/* Title section */
+.titleSection {
+  /* No additional styles needed, children handle it */
+}
+
+.title {
+  color: #0f172a; /* slate-900 */
+  font-size: 2.25rem; /* 4xl = 36px */
+  font-weight: 900; /* black */
+  line-height: 1.1; /* tight */
+  letter-spacing: -0.025em; /* tight */
+  margin: 0;
+}
+
+/* Dark mode for title */
+:global(.dark) .title {
+  color: #ffffff; /* white */
+}
+
+.subtitle {
+  color: #64748b; /* slate-500 */
+  font-size: 1rem; /* base = 16px */
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+/* Dark mode for subtitle */
+:global(.dark) .subtitle {
+  color: #94a3b8; /* slate-400 */
+}
+
+/* Error message */
+.errorMessage {
+  background-color: #fef2f2; /* red-50 */
+  border: 1px solid #fecaca; /* red-200 */
+  border-radius: 0.5rem; /* rounded-lg */
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Dark mode for error */
+:global(.dark) .errorMessage {
+  background-color: rgba(127, 29, 29, 0.2); /* red-900/20 */
+  border-color: #991b1b; /* red-800 */
+}
+
+.errorText {
+  color: #991b1b; /* red-800 */
+  font-size: 0.875rem; /* sm */
+  margin: 0;
+}
+
+/* Dark mode for error text */
+:global(.dark) .errorText {
+  color: #fecaca; /* red-200 */
+}
+
+/* Products section */
+.productsSection {
+  /* Container for products grid */
+}
+
+/* Category chips wrapper */
+.categoriesWrapper {
+  margin-bottom: 2rem;
+}
+
+/* State examples wrapper */
+.stateExamplesWrapper {
+  margin-top: 2rem;
+}

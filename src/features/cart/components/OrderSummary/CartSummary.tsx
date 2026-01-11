@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { type CartSummaryProps } from './CartSummary.types';
 import styles from './CartSummary.module.css';
 import Icon from '../../../../shared/ui/Icon';
+import { formatPrice } from '../../../../utils/utils';
 
 const CartSummary: React.FC<CartSummaryProps> = ({ 
   summary, 
@@ -23,12 +24,6 @@ const CartSummary: React.FC<CartSummaryProps> = ({
     }
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price);
-  };
 
   const isFreeShipping = summary.shipping === 0;
 

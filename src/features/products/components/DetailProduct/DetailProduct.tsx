@@ -5,6 +5,7 @@ import Icon from '../../../../shared/ui/Icon';
 
 import type { ProductDetailProps, StorageOption, ReviewSummary } from './ProductDetail.types';
 import styles from './ProductDetail.module.css';
+import { formatPrice } from '../../../../utils/utils';
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ 
   product, 
@@ -16,7 +17,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
   const [quantity, setQuantity] = useState<number>(1);
   const [activeTab, setActiveTab] = useState<string>('description');
   const dispatch = useAppDispatch();
-  // Mock de opciones de almacenamiento
+  // Mock de opciones
   const storageOptions: StorageOption[] = [
     { capacity: 'option 1', price: 0 },
     { capacity: 'option 2', price: 100 },
@@ -36,7 +37,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       1: 2
     }
   };
-
+  // agregar al carrito
   const handleAddToCart = () => {
     dispatch(addItem({
       id: product.id,
@@ -48,20 +49,19 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     }));
     onAddToCart?.(product.id);
   };
-
+  // comprar ahora
   const handleBuyNow = () => {
     onBuyNow?.(product.id);
   };
-
+  // cambiar cantidad
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity >= 1 && newQuantity <= product.stock) {
       setQuantity(newQuantity);
       onQuantityChange?.(newQuantity);
     }
   };
-
+  // calcular descuento
   const calculateDiscount = () => {
-    // Simular un precio original con 10% de descuento
     const originalPrice = product.price * 1.1;
     return {
       original: originalPrice,
@@ -69,16 +69,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       percentage: Math.round(((originalPrice - product.price) / originalPrice) * 100)
     };
   };
-
   const discount = calculateDiscount();
 
-  // Formatear precio
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price);
-  };
 
   // Renderizar estrellas de rating
   const renderRatingStars = (rating: number) => {
@@ -113,11 +105,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       {/* Breadcrumbs */}
       <nav className={styles.breadcrumbs}>
         <a href="#" className={styles.breadcrumbLink}>Home</a>
-        <span className={styles.breadcrumbSeparator}>/</span>
-        <a href="#" className={styles.breadcrumbLink}>Electronics</a>
-        <span className={styles.breadcrumbSeparator}>/</span>
-        <a href="#" className={styles.breadcrumbLink}>Audio</a>
-        <span className={styles.breadcrumbSeparator}>/</span>
+        <span className={styles.breadcrumbSeparator}>/Products</span>
+        <span className={styles.breadcrumbSeparator}>/Detail</span>
         <span className={styles.breadcrumbCurrent}>{product.name}</span>
       </nav>
 

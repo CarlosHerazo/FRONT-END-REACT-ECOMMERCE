@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'; // Importa Link
 import { type ProductCardProps } from './ProductCard.types';
 import styles from './ProductCard.module.css';
 import Icon from '../../../../shared/ui/Icon';
+import { formatPrice } from '../../../../utils/utils';
 
 const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
   onAddToCart,
   onToggleFavorite,
-  onClick 
 }) => {
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault(); // Previene la navegación del Link
@@ -22,20 +22,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
     onToggleFavorite?.(product.id);
   };
 
-  const handleCardClick = () => {
-    onClick?.(product.id);
-  };
-
   // Formatear precio
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price);
-  };
+
 
   return (
-    // Opción 1: Usando Link para navegación
+    // Usando Link para navegación
     <Link 
       to={`/products/${product.id}`} 
       className={styles.productCardLink}

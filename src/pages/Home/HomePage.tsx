@@ -4,16 +4,13 @@ import { useState, useEffect } from 'react';
 import { useToast } from '../../shared/ui/Toast';
 import { useAppDispatch } from '../../store/hooks';
 import { addItem } from '../../features/cart/store/cartSlice';
+import styles from './HomePage.module.css';
 
 const categories = [
   'All Items',
   'Electronics',
-  'Apparel',
-  'Home & Living',
   'Accessories',
   'Computing',
-  'Clothing',
-  'New Arrivals',
 ];
 
 export const HomePage = () => {
@@ -69,26 +66,26 @@ export const HomePage = () => {
   };
 
   const breadcrumbItems = [
-    { label: 'Home', href: '#' },
-    { label: 'Products' },
+    { label: 'Home', href: '/Home' },
+    { label: 'Products', href: '/products' },
   ];
 
   // Determinar si mostrar StateExamples
   const shouldShowStateExamples = loading || (isFiltering && products.length === 0);
 
   return (
-    <main className="container">
+    <main className={`container ${styles.homePage}`}>
       <Breadcrumbs items={breadcrumbItems} />
 
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-tight">
-            {isFiltering && activeCategory !== 'All Items' 
+      <div className={styles.header}>
+        <div className={styles.titleSection}>
+          <h1 className={styles.title}>
+            {isFiltering && activeCategory !== 'All Items'
               ? `${activeCategory} Products`
               : 'Products available'}
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 text-base mt-1">
-            {loading 
+          <p className={styles.subtitle}>
+            {loading
               ? 'Loading products...'
               : isFiltering && products.length === 0
               ? 'No products found'
@@ -97,15 +94,17 @@ export const HomePage = () => {
         </div>
       </div>
 
-      <CategoryChips
-        categories={categories}
-        activeCategory={activeCategory}
-        onCategoryChange={handleCategoryChange}
-      />
+      <div className={styles.categoriesWrapper}>
+        <CategoryChips
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryChange}
+        />
+      </div>
 
       {error && (
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
-          <p className="text-red-800 dark:text-red-200 text-sm">
+        <div className={styles.errorMessage}>
+          <p className={styles.errorText}>
             Error loading products: {error.message}
           </p>
         </div>
@@ -121,18 +120,14 @@ export const HomePage = () => {
           activeCategory={activeCategory !== 'All Items' ? activeCategory : ''}
         />
       ) : products.length > 0 ? (
-        <>
+        <div className={styles.productsSection}>
           <ProductsGrid
             products={products}
             onAddToCart={handleAddToCart}
             onToggleFavorite={handleToggleFavorite}
           />
-          
-          {/* Puedes mostrar StateExamples normal aquí si quieres mantener la sección de demostración */}
-          {/* <StateExamples onClearFilters={handleClearFilters} /> */}
-        </>
+        </div>
       ) : (
-        // Esto es por si no hay productos en absoluto (ni filtrados)
         <StateExamples
           onClearFilters={handleClearFilters}
           isEmpty={true}

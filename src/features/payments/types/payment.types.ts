@@ -48,6 +48,10 @@ export interface ProcessPaymentDto {
     orderId?: string;
     productIds?: string[];
   };
+  products: {
+    productId : string;
+    quantity: number;
+  }[];
 }
 
 export interface ProcessPaymentResponse {

@@ -1,11 +1,6 @@
 import React from 'react';
 import styles from './CategoryChips.module.css';
-
-interface CategoryChipsProps {
-  categories: string[];
-  activeCategory: string;
-  onCategoryChange: (category: string) => void;
-}
+import type { CategoryChipsProps } from './CategoryChips.types';
 
 const CategoryChips: React.FC<CategoryChipsProps> = ({ 
   categories, 

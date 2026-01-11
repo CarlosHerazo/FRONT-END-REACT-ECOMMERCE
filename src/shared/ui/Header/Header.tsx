@@ -17,7 +17,7 @@ const Header: React.FC = () => {
         </div>
 
         <nav className={styles.nav}>
-          <a className={`${styles.navLink} ${styles.active}`} href="#">
+          <a className={`${styles.navLink} ${styles.active}`} href="/products">
             Products
           </a>
         </nav>

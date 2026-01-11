@@ -2,6 +2,7 @@ import React from 'react';
 import { type CartItemProps } from './CartItem.types';
 import styles from './CartItem.module.css';
 import Icon from '../../../../shared/ui/Icon';
+import { formatPrice } from '../../../../utils/utils';
 
 const CartItem: React.FC<CartItemProps> = ({ 
   item, 
@@ -20,13 +21,6 @@ const CartItem: React.FC<CartItemProps> = ({
 
   const handleRemove = () => {
     onRemove(item.id);
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(price);
   };
 
   return (
