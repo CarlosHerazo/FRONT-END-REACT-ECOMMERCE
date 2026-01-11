@@ -1,0 +1,217 @@
+.transactionCard {
+  background-color: var(--color-card-bg-light);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition-default);
+  box-shadow: var(--shadow-sm);
+}
+
+.transactionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+.cardHeader {
+  padding: 1.25rem 1.5rem;
+  background-color: var(--color-bg-light);
+  border-bottom: 1px solid var(--color-border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.transactionId {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-light);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.statusBadge {
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statusBadge.success {
+  background-color: #10b981;
+  color: white;
+}
+
+.statusBadge.warning {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.statusBadge.error {
+  background-color: #ef4444;
+  color: white;
+}
+
+.statusBadge.default {
+  background-color: var(--color-text-secondary-light);
+  color: white;
+}
+
+.cardBody {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mainInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.amount {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: var(--color-primary);
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary-light);
+  font-size: 0.875rem;
+}
+
+.customerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-text-light);
+  font-size: 0.875rem;
+}
+
+.shippingInfo {
+  padding: 1rem;
+  background-color: var(--color-bg-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.addressText {
+  color: var(--color-text-secondary-light);
+  line-height: 1.6;
+  font-size: 0.875rem;
+  padding-left: 2rem;
+}
+
+.paymentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--color-bg-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+}
+
+.paymentRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.label {
+  color: var(--color-text-secondary-light);
+  font-weight: 500;
+}
+
+.value {
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--color-bg-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+}
+
+.metadataRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.cardFooter {
+  padding: 1rem 1.5rem;
+  background-color: var(--color-bg-light);
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.transactionIds {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.idLabel {
+  color: var(--color-text-secondary-light);
+  font-weight: 500;
+}
+
+.idValue {
+  color: var(--color-text-light);
+  font-family: monospace;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mainInfo {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .amount {
+    font-size: 1.5rem;
+  }
+}

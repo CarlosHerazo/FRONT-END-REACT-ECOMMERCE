@@ -1,12 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header, Layout, Footer } from './shared/ui';
-import { HomePage } from './pages/Home/HomePage';
-import { ProductDetailPage } from './pages/ProductDetail';
-import { CartPage } from './pages/Cart/CartPage';
 import { ToastProvider } from './shared/ui/Toast';
+import { 
+  HomePage, 
+  CartPage, 
+  CheckoutPage, 
+  ProductDetailPage,
+  TransactionsPage 
+} from './pages/index.ts';
 
 import './styles/globals.css';
-import { CheckoutPage } from './pages/Checkout/CheckoutPage';
 
 /**
  * App Component - Root component
@@ -23,6 +26,7 @@ const App = () => {
               <Route path="/" element={<HomePage />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/products" element={<HomePage />} />
+              <Route path="/transactions" element={<TransactionsPage />} />
               <Route path="/products/:id" element={<ProductDetailPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />

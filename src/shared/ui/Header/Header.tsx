@@ -17,10 +17,14 @@ const Header: React.FC = () => {
         </div>
 
         <nav className={styles.nav}>
-          <a className={`${styles.navLink} ${styles.active}`} href="/products">
+          <Link className={`${styles.navLink} ${styles.active}`} to="/products">
             Products
-          </a>
+          </Link>
+          <Link className={styles.navLink} to="/transactions">
+            Transactions
+          </Link>
         </nav>
+        
 
         <div className={styles.rightSection}>
           <div className={styles.searchContainer}>
@@ -36,15 +40,6 @@ const Header: React.FC = () => {
             <Icon name="shopping_cart" />
             <span className={styles.cartBadge}>{totalQuantity}</span>
           </Link>
-
-          <div className={styles.avatar}>
-            <div 
-              className={styles.avatarImage}
-              style={{
-                backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNk1nr7k8MVyFXaC0d5OOBpTH2iUuMsXsME2oA8m6ubJOEtEFL0VQEdVe1Jc9YdFZIXq39PQtaYaRFlIPHgR3J0XEjfvzqUqw2gZOEsFtciBaZkx8B7HU_zoiAjvGK4V4wPjhrmu2hh-9PwstD7xlTJx8zh45DlKQ2JkTQwLD1ncsKhEZ32rg4QwWD7TCZ6X6L5mOt_bj0JiFhby6RCn-hTVOQ5QLLB_mA4iuYmft3L_MF_b-UqhXiwjxDe77hrmStRywl2EoI2Xc")'
-              }}
-            />
-          </div>
         </div>
       </div>
     </header>

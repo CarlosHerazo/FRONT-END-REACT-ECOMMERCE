@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { ToastContainer } from './ToastContainer';
 import type { ToastType } from './Toast';
 
@@ -33,6 +34,28 @@ interface ToastProviderProps {
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [portalRoot, setPortalRoot] = useState<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Create a dedicated container for toasts
+    let container = document.getElementById('toast-portal-root') as HTMLDivElement;
+
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'toast-portal-root';
+      document.body.appendChild(container);
+    }
+
+    setPortalRoot(container);
+
+    return () => {
+      // Cleanup on unmount - only remove if we created it
+      if (container && document.body.contains(container)) {
+        // Clear any remaining toasts
+        container.innerHTML = '';
+      }
+    };
+  }, []);
 
   const showToast = useCallback((message: string, type: ToastType, duration = 5000) => {
     const id = Math.random().toString(36).substring(2, 9);
@@ -72,7 +95,10 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   return (
     <ToastContext.Provider value={value}>
       {children}
-      <ToastContainer toasts={toasts} onClose={removeToast} />
+      {portalRoot && toasts.length > 0 && createPortal(
+        <ToastContainer toasts={toasts} onClose={removeToast} />,
+        portalRoot
+      )}
     </ToastContext.Provider>
   );
 };
