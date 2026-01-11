@@ -1,0 +1,110 @@
+import React from 'react';
+import Icon from '../Icon';
+import styles from './StateExamples.module.css';
+
+interface StateExamplesProps {
+  onClearFilters: () => void;
+  isLoading?: boolean;
+  isEmpty?: boolean;
+  searchQuery?: string;
+  activeCategory?: string;
+}
+
+const StateExamples: React.FC<StateExamplesProps> = ({
+  onClearFilters,
+  isLoading = false,
+  isEmpty = false,
+  searchQuery = '',
+  activeCategory = ''
+}) => {
+  // Si no está cargando y no está vacío, no mostrar nada
+  if (!isLoading && !isEmpty) {
+    return null;
+  }
+
+  // Si está cargando, mostrar skeletons
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <h2 className={styles.title}>
+          <Icon name="analytics" />
+          Loading Products...
+        </h2>
+
+        <div className={styles.examplesGrid}>
+         { 
+          Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className={styles.exampleSection}>
+              <div className={styles.sectionTitle}>Loading</div>
+                <div className={styles.skeletonCard}>
+                  <div className={`skeleton ${styles.skeletonImage}`} />
+                  <div className={`skeleton ${styles.skeletonTextLarge}`} />
+                  <div className={`skeleton ${styles.skeletonTextSmall}`} />
+                  <div className={styles.skeletonFooter}>
+                    <div className={`skeleton ${styles.skeletonPrice}`} />
+                    <div className={`skeleton ${styles.skeletonButton}`} />
+                  </div>
+                </div>
+              </div>
+            ))
+          
+          }
+          
+        </div>
+      </div>
+    );
+  }
+
+  // Si está vacío (sin resultados de búsqueda/filtro)
+  return (
+    <div className={styles.container}>
+      <h2 className={styles.title}>
+        <Icon name="search_off" />
+        No Products Found
+      </h2>
+
+      <div className={styles.examplesGrid}>
+        <div className={styles.emptyState}>
+          <div className={styles.emptyStateIcon}>
+            <Icon name="search_off" />
+          </div>
+          <h4 className={styles.emptyStateTitle}>
+            {activeCategory && activeCategory !== 'All Items' 
+              ? `No products in "${activeCategory}"`
+              : searchQuery
+              ? `No results for "${searchQuery}"`
+              : 'No products found'}
+          </h4>
+          <p className={styles.emptyStateText}>
+            {activeCategory && activeCategory !== 'All Items'
+              ? `We couldn't find any products in the ${activeCategory} category.`
+              : searchQuery
+              ? 'Try adjusting your search terms or browse all products.'
+              : 'Try adjusting your filters or search terms to find what you\'re looking for.'}
+          </p>
+          <div className={styles.emptyStateActions}>
+            <button 
+              className={styles.clearFiltersButton}
+              onClick={onClearFilters}
+            >
+              Clear all filters
+            </button>
+            {searchQuery && (
+              <button 
+                className={styles.browseAllButton}
+                onClick={() => {
+                  // Esto podría ser otra función para limpiar la búsqueda
+                  onClearFilters();
+                }}
+              >
+                Browse all products
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default StateExamples;

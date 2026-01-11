@@ -1,0 +1,546 @@
+/* Backdrop */
+.emailModalBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Modal Container */
+.emailModalContainer {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 36rem;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dark .emailModalContainer {
+  background-color: rgb(15 23 42);
+  border: 1px solid rgb(30 41 59);
+}
+
+/* Modal Header */
+.emailModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgb(226 232 240);
+}
+
+.dark .emailModalHeader {
+  border-bottom-color: rgb(30 41 59);
+}
+
+.emailModalTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: rgb(15 23 42);
+  margin: 0;
+}
+
+.dark .emailModalTitle {
+  color: white;
+}
+
+.emailModalCloseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(241 245 249);
+  color: rgb(100 116 139);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.emailModalCloseBtn:hover {
+  background-color: rgb(226 232 240);
+  color: rgb(71 85 105);
+}
+
+.dark .emailModalCloseBtn {
+  background-color: rgb(30 41 59);
+  color: rgb(148 163 184);
+}
+
+.dark .emailModalCloseBtn:hover {
+  background-color: rgb(51 65 85);
+  color: white;
+}
+
+/* Modal Body */
+.emailModalBody {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Form Styles */
+.emailForm {
+  width: 100%;
+}
+
+.formIntro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.formIcon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #137fec 0%, #2d9dff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.formIcon svg {
+  font-size: 2rem;
+  color: white;
+}
+
+.formTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgb(15 23 42);
+  margin-bottom: 0.5rem;
+}
+
+.dark .formTitle {
+  color: white;
+}
+
+.formDescription {
+  color: rgb(100 116 139);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.dark .formDescription {
+  color: rgb(148 163 184);
+}
+
+.emailInputGroup {
+  margin-bottom: 1.5rem;
+}
+
+.inputLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(71 85 105);
+  margin-bottom: 0.5rem;
+}
+
+.dark .inputLabel {
+  color: rgb(148 163 184);
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 1rem;
+  color: rgb(148 163 184);
+  pointer-events: none;
+}
+
+.emailInput {
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem 0 3rem;
+  border-radius: 0.5rem;
+  border: 2px solid rgb(226 232 240);
+  background-color: transparent;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.emailInput:focus {
+  outline: none;
+  border-color: #137fec;
+  box-shadow: 0 0 0 3px rgba(19, 127, 236, 0.1);
+}
+
+.dark .emailInput {
+  border-color: rgb(30 41 59);
+  color: white;
+}
+
+.dark .emailInput:focus {
+  border-color: #137fec;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: rgb(239 68 68);
+  font-size: 0.875rem;
+}
+
+.privacyNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: rgb(248 250 252);
+  border-radius: 0.5rem;
+  color: rgb(100 116 139);
+  font-size: 0.875rem;
+}
+
+.dark .privacyNote {
+  background-color: rgb(30 41 59);
+  color: rgb(148 163 184);
+}
+
+/* Search Results */
+.searchResult {
+  text-align: center;
+}
+
+.resultIcon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.resultIcon.success {
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+.resultIcon.success svg {
+  color: rgb(34 197 94);
+  font-size: 3rem;
+}
+
+.resultIcon.info {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.resultIcon.info svg {
+  color: #137fec;
+  font-size: 3rem;
+}
+
+.resultTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(15 23 42);
+  margin-bottom: 0.5rem;
+}
+
+.dark .resultTitle {
+  color: white;
+}
+
+.resultSubtitle {
+  color: rgb(100 116 139);
+  margin-bottom: 2rem;
+}
+
+/* Customer Details */
+.customerDetails {
+  background-color: rgb(248 250 252);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.dark .customerDetails {
+  background-color: rgb(30 41 59);
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgb(226 232 240);
+}
+
+.dark .detailRow {
+  border-bottom-color: rgb(51 65 85);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  color: rgb(100 116 139);
+  font-weight: 500;
+}
+
+.dark .detailLabel {
+  color: rgb(148 163 184);
+}
+
+.detailValue {
+  color: rgb(15 23 42);
+  font-weight: 600;
+}
+
+.dark .detailValue {
+  color: white;
+}
+
+.emailValue {
+  color: #137fec;
+}
+
+.membershipBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  border-radius: 9999px;
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgb(71 85 105);
+}
+
+.dark .benefitItem {
+  color: rgb(148 163 184);
+}
+
+.benefitItem svg {
+  color: rgb(34 197 94);
+}
+
+/* New Customer Styles */
+.newCustomerCard {
+  background-color: rgb(248 250 252);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.dark .newCustomerCard {
+  background-color: rgb(30 41 59);
+}
+
+.customerEmailDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.dark .customerEmailDisplay {
+  background-color: rgb(15 23 42);
+}
+
+.welcomeMessage {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.welcomeTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: rgb(15 23 42);
+  margin-bottom: 0.5rem;
+}
+
+.dark .welcomeTitle {
+  color: white;
+}
+
+.welcomeText {
+  color: rgb(100 116 139);
+  font-size: 0.875rem;
+}
+
+.newCustomerBenefits {
+  text-align: left;
+}
+
+.benefitsTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(15 23 42);
+  margin-bottom: 1rem;
+}
+
+.dark .benefitsTitle {
+  color: white;
+}
+
+.benefitsList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.benefitsList li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: rgb(71 85 105);
+}
+
+.dark .benefitsList li {
+  color: rgb(148 163 184);
+}
+
+.benefitsList li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #137fec;
+  font-weight: bold;
+}
+
+/* Modal Footer */
+.emailModalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgb(226 232 240);
+}
+
+.dark .emailModalFooter {
+  border-top-color: rgb(30 41 59);
+}
+
+.modalSecondaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: rgb(241 245 249);
+  color: rgb(71 85 105);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modalSecondaryBtn:hover {
+  background-color: rgb(226 232 240);
+}
+
+.dark .modalSecondaryBtn {
+  background-color: rgb(30 41 59);
+  color: rgb(148 163 184);
+}
+
+.dark .modalSecondaryBtn:hover {
+  background-color: rgb(51 65 85);
+}
+
+.modalPrimaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: #137fec;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(19, 127, 236, 0.2);
+  transition: all 0.2s;
+}
+
+.modalPrimaryBtn:hover:not(:disabled) {
+  background-color: rgba(19, 127, 236, 0.9);
+  box-shadow: 0 10px 15px -3px rgba(19, 127, 236, 0.3);
+}
+
+.modalPrimaryBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modalPrimaryBtn.loading {
+  opacity: 0.8;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

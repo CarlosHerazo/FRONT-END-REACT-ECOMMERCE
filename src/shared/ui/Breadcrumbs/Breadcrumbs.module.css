@@ -1,0 +1,41 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumbLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary-light);
+  text-decoration: none;
+  transition: var(--transition-default);
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-primary);
+}
+
+.dark .breadcrumbLink {
+  color: var(--color-text-secondary-dark);
+}
+
+.breadcrumbCurrent {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+}
+
+.dark .breadcrumbCurrent {
+  color: var(--color-text-dark);
+}
+
+.breadcrumbs span {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary-light);
+}
+
+.dark .breadcrumbs span {
+  color: var(--color-text-secondary-dark);
+}

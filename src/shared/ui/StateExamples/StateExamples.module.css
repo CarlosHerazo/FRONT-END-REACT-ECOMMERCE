@@ -1,0 +1,191 @@
+.container {
+  padding-top: 3rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.dark .container {
+  border-top-color: var(--color-border-dark);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dark .title {
+  color: var(--color-text-dark);
+}
+
+.title span {
+  color: var(--color-primary);
+}
+
+.examplesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .examplesGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.exampleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-secondary-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dark .sectionTitle {
+  color: var(--color-text-secondary-dark);
+}
+
+.skeletonCard {
+  background-color: var(--color-card-bg-light);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.dark .skeletonCard {
+  background-color: var(--color-card-bg-dark);
+  border-color: var(--color-border-dark);
+}
+
+.skeletonImage {
+  aspect-ratio: 1/1;
+  border-radius: var(--radius-lg);
+  width: 100%;
+}
+
+.skeletonTextLarge {
+  height: 1rem;
+  width: 75%;
+  border-radius: var(--radius-sm);
+}
+
+.skeletonTextSmall {
+  height: 1rem;
+  width: 50%;
+  border-radius: var(--radius-sm);
+}
+
+.skeletonFooter {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.skeletonPrice {
+  height: 2rem;
+  width: 33%;
+  border-radius: var(--radius-sm);
+}
+
+.skeletonButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+}
+
+.emptyState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(241, 245, 249, 0.5);
+  border: 2px dashed var(--color-border-light);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .emptyState {
+    grid-column: span 2;
+  }
+}
+
+.dark .emptyState {
+  background-color: rgba(30, 41, 59, 0.3);
+  border-color: var(--color-border-dark);
+}
+
+.emptyStateIcon {
+  width: 4rem;
+  height: 4rem;
+  background-color: #e2e8f0;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary-light);
+  margin-bottom: 1rem;
+}
+
+.dark .emptyStateIcon {
+  background-color: var(--color-card-bg-dark);
+  color: var(--color-text-secondary-dark);
+}
+
+.emptyStateIcon span {
+  font-size: 1.875rem;
+}
+
+.emptyStateTitle {
+  color: var(--color-text-light);
+  font-weight: 700;
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.dark .emptyStateTitle {
+  color: var(--color-text-dark);
+}
+
+.emptyStateText {
+  color: var(--color-text-secondary-light);
+  font-size: 0.875rem;
+  max-width: 200px;
+  margin: 0 auto 1.5rem;
+}
+
+.dark .emptyStateText {
+  color: var(--color-text-secondary-dark);
+}
+
+.clearFiltersButton {
+  padding: 0.5rem 1.5rem;
+  background-color: var(--color-primary);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-default);
+}
+
+.clearFiltersButton:hover {
+  background-color: var(--color-primary-hover);
+}

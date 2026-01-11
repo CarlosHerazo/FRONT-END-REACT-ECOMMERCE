@@ -1,0 +1,135 @@
+.cartPage {
+  padding: 2rem 0;
+  min-height: 70vh;
+}
+
+.pageHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .pageTitle {
+    font-size: 2.5rem;
+  }
+}
+
+.itemsCount {
+  font-weight: 500;
+  color: var(--color-text-secondary-light);
+}
+
+.continueShoppingButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-bg-light);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.continueShoppingButton:hover {
+  background-color: var(--color-border-light);
+  transform: translateY(-1px);
+}
+
+.cartGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .cartGrid {
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.cartItemsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cartItemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  border: 2px dashed var(--color-border-light);
+  border-radius: var(--radius-lg);
+  background-color: rgba(248, 250, 252, 0.5);
+}
+
+.emptyCart span {
+  font-size: 3rem;
+  color: var(--color-text-secondary-light);
+  margin-bottom: 1rem;
+}
+
+.emptyCart h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+  margin: 0 0 0.5rem 0;
+}
+
+.emptyCart p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary-light);
+  margin: 0 0 1.5rem 0;
+}
+
+.shopButton {
+  padding: 0.75rem 2rem;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.shopButton:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.cartSummarySection {
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .cartSummarySection {
+    position: sticky;
+    top: 6rem;
+  }
+}
