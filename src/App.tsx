@@ -3,6 +3,7 @@ import { Header, Layout, Footer } from './shared/ui';
 import { HomePage } from './pages/Home/HomePage';
 import { ProductDetailPage } from './pages/ProductDetail';
 import { CartPage } from './pages/Cart/CartPage';
+import { ToastProvider } from './shared/ui/Toast';
 
 import './styles/globals.css';
 import { CheckoutPage } from './pages/Checkout/CheckoutPage';
@@ -13,21 +14,24 @@ import { CheckoutPage } from './pages/Checkout/CheckoutPage';
  */
 const App = () => {
   return (
-    <Router>
-      <Layout>
-        <Header />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/products/:id" element={<ProductDetailPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </Layout>
-    </Router>
+    <ToastProvider>
+      <Router>
+        <Layout>
+          <Header />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/products" element={<HomePage />} />
+              <Route path="/products/:id" element={<ProductDetailPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+            </Routes>
+          </main>
+          <Footer />
+        </Layout>
+      </Router>
+    </ToastProvider>
   );
 };
 

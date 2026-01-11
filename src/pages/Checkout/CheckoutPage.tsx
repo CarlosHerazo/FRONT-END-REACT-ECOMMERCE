@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { clearCart } from '../../features/cart/store/cartSlice';
 import { CreditCardForm, type CreditCardData } from './components/CreditCardForm/CreditCardForm';
 import { CustomerDataForm, type CustomerData } from './components/CustomerDataForm/CustomerDataForm';
 import { OrderSummary } from './components/OrderSummary/OrderSummary';
 import { paymentService } from '../../features/payments/services/payment.service';
+import type { Client } from '../../features/clients/types/clients.types';
 import Icon from '../../shared/ui/Icon';
+import { useToast } from '../../shared/ui/Toast';
 import styles from './CheckoutPage.module.css';
 
 export function CheckoutPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const { showSuccess: showSuccessToast, showError } = useToast();
+
+  // Get customer data from navigation state
+  const customerFromCart = location.state?.customer as Client | undefined;
 
   // Cart data from Redux
   const cartItems = useAppSelector((state) => state.cart.items);
@@ -24,14 +31,14 @@ export function CheckoutPage() {
     cvc: '',
   });
   const [customerData, setCustomerData] = useState<CustomerData>({
-    fullName: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
+    fullName: customerFromCart?.fullName || '',
+    email: customerFromCart?.email || '',
+    phone: customerFromCart?.phone || '',
+    address: customerFromCart?.address || '',
+    city: customerFromCart?.city || '',
     region: '',
-    country: 'CO',
-    postalCode: '',
+    country: customerFromCart?.country || 'CO',
+    postalCode: customerFromCart?.postalCode || '',
   });
 
   // Validation states
@@ -43,12 +50,15 @@ export function CheckoutPage() {
   const [error, setError] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Redirect if cart is empty
+  // Redirect if cart is empty or no customer data
   useEffect(() => {
     if (cartItems.length === 0 && !showSuccess) {
       navigate('/cart');
     }
-  }, [cartItems.length, navigate, showSuccess]);
+    if (!customerFromCart && !showSuccess) {
+      navigate('/cart');
+    }
+  }, [cartItems.length, navigate, showSuccess, customerFromCart]);
 
   // Calculate order summary
   const calculateSummary = () => {
@@ -68,6 +78,11 @@ export function CheckoutPage() {
       return;
     }
 
+    if (!customerFromCart?.id) {
+      setError('Customer information is missing. Please go back to cart.');
+      return;
+    }
+
     setIsProcessing(true);
     setError(null);
 
@@ -84,33 +99,50 @@ export function CheckoutPage() {
 
       console.log('Card tokenized successfully:', tokenizeResponse);
 
-      // Step 2: Process the payment
+      // Step 2: Process the payment with correct payload structure
       const paymentResponse = await paymentService.processPayment({
+        customerId: customerFromCart.id,
+        customerEmail: customerData.email,
         amountInCents: Math.round(summary.total * 100), // Convert to cents
         currency: 'COP',
-        customerEmail: customerData.email,
         paymentMethod: {
           type: 'CARD',
           token: tokenizeResponse.data.id,
           installments: 1,
         },
-        customerData: {
-          phoneNumber: customerData.phone,
-          fullName: customerData.fullName,
-        },
+        customerFullName: customerData.fullName,
+        customerPhoneNumber: customerData.phone,
         shippingAddress: {
           addressLine1: customerData.address,
           city: customerData.city,
           region: customerData.region,
           country: customerData.country,
+          phoneNumber: customerData.phone,
+          postalCode: customerData.postalCode,
+        },
+        metadata: {
+          orderId: `ORDER-${Date.now()}`,
+          productIds: cartItems.map(item => item.id),
         },
       });
 
       console.log('Payment processed successfully:', paymentResponse);
 
-      if (paymentResponse.success && paymentResponse.transaction.status === 'APPROVED') {
+      // Handle both response structures: wrapped in success/transaction or direct
+      const isSuccess = paymentResponse.success
+        ? paymentResponse.transaction.status === 'APPROVED'
+        : (paymentResponse as any).status === 'APPROVED';
+
+      const transactionId = paymentResponse.success
+        ? paymentResponse.transaction.id
+        : (paymentResponse as any).transactionId;
+
+      if (isSuccess) {
         // Clear cart
         dispatch(clearCart());
+
+        // Show success toast
+        showSuccessToast('Payment approved! Your order has been placed successfully.');
 
         // Show success message
         setShowSuccess(true);
@@ -120,20 +152,22 @@ export function CheckoutPage() {
           navigate('/products', {
             state: {
               message: 'Payment successful! Your order has been placed.',
-              transactionId: paymentResponse.transaction.id
+              transactionId: transactionId
             }
           });
-        }, 3000);
+        }, 7000);
       } else {
-        setError('Payment was declined. Please try again with a different card.');
+        const errorMessage = 'Payment was declined. Please try again with a different card.';
+        setError(errorMessage);
+        showError(errorMessage);
       }
     } catch (err) {
       console.error('Payment error:', err);
-      setError(
-        err instanceof Error
-          ? err.message
-          : 'An error occurred while processing your payment. Please try again.'
-      );
+      const errorMessage = err instanceof Error
+        ? err.message
+        : 'An error occurred while processing your payment. Please try again.';
+      setError(errorMessage);
+      showError(errorMessage);
     } finally {
       setIsProcessing(false);
     }
@@ -187,11 +221,7 @@ export function CheckoutPage() {
                 <h2 className={styles.formCardTitle}>Shipping Information</h2>
               </div>
               <CustomerDataForm
-                initialData={{
-                  email: customerData.email,
-                  fullName: customerData.fullName,
-                  phone: customerData.phone,
-                }}
+                initialData={customerData}
                 onDataChange={setCustomerData}
                 onValidityChange={setIsCustomerDataValid}
               />

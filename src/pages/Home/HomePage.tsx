@@ -1,6 +1,9 @@
 import { Breadcrumbs, StateExamples } from '../../shared/ui';
 import { ProductsGrid, CategoryChips, useProducts } from '../../features/products';
 import { useState, useEffect } from 'react';
+import { useToast } from '../../shared/ui/Toast';
+import { useAppDispatch } from '../../store/hooks';
+import { addItem } from '../../features/cart/store/cartSlice';
 
 const categories = [
   'All Items',
@@ -18,6 +21,8 @@ export const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
   const { products, loading, error, filterByCategory, resetFilters } = useProducts();
+  const { showSuccess } = useToast();
+  const dispatch = useAppDispatch();
 
   // Efecto para detectar si está filtrando (categoría diferente a "All Items")
   useEffect(() => {
@@ -25,8 +30,18 @@ export const HomePage = () => {
   }, [activeCategory]);
 
   const handleAddToCart = (productId: string) => {
-    console.log('Added to cart:', productId);
-    // TODO: Implementar lógica del carrito
+    const product = products.find(p => p.id === productId);
+    if (product) {
+      dispatch(addItem({
+        id: product.id,
+        name: product.name,
+        sku: `SKU-${product.id}`,
+        price: product.price,
+        imageUrl: product.imgUrl,
+        description: product.description,
+      }));
+      showSuccess(`${product.name} added to cart!`);
+    }
   };
 
   const handleToggleFavorite = (productId: string) => {

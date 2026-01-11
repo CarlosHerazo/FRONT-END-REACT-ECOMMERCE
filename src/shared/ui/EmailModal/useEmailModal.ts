@@ -13,7 +13,7 @@ export const useEmailModal = (isOpen: boolean) => {
     phone: '',
     address: '',
     city: '',
-    country: '',
+    country: 'CO',
     postalCode: ''
   });
   const [formErrors, setFormErrors] = useState<Partial<Record<keyof NewCustomerData, string>>>({});
@@ -33,7 +33,7 @@ export const useEmailModal = (isOpen: boolean) => {
         phone: '',
         address: '',
         city: '',
-        country: '',
+        country: 'CO',
         postalCode: ''
       });
       setFormErrors({});

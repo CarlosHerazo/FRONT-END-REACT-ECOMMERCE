@@ -11,11 +11,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onClick 
 }) => {
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
+    e.preventDefault(); // Previene la navegación del Link
+    e.stopPropagation(); // Previene la propagación del evento
     onAddToCart?.(product.id);
   };
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault(); // Previene la navegación del Link
     e.stopPropagation(); // Previene la propagación al contenedor
     onToggleFavorite?.(product.id);
   };

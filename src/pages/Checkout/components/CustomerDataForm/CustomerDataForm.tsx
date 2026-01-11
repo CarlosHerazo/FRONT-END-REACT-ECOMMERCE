@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './CustomerDataForm.module.css';
 import Icon from '../../../../shared/ui/Icon';
 
@@ -36,6 +36,14 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof CustomerData, string>>>({});
+
+  // Validate form when initial data is loaded
+  useEffect(() => {
+    if (initialData && Object.keys(initialData).length > 0) {
+      validateForm(formData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const validateEmail = (email: string): boolean => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

@@ -35,9 +35,8 @@ const EmailModal: React.FC<EmailModalProps> = ({
     if (searchResult) {
       if (searchResult.isExisting) {
         // navegar al checkout como cliente existente
-        onEmailSubmit(searchResult.email, true);
+        await onEmailSubmit(searchResult.email, true);
         onClose();
-        navigate('/checkout');
       } else {
         // Nuevo cliente - validar formulario primero
         if (validateNewCustomerForm()) {
@@ -343,14 +342,17 @@ const EmailModal: React.FC<EmailModalProps> = ({
                         </label>
                         <div className={styles.inputWrapper}>
                           <Icon name="public" className={styles.inputIcon} />
-                          <input
+                          <select
                             id="country"
-                            type="text"
                             value={newCustomerData.country}
                             onChange={(e) => handleFormChange('country', e.target.value)}
-                            placeholder="United States"
-                            className={`${styles.formInput} ${formErrors.country ? styles.inputError : ''}`}
-                          />
+                            className={`${styles.formInput} ${styles.formSelect} ${formErrors.country ? styles.inputError : ''}`}
+                          >
+                            <option value="CO">Colombia</option>
+                            <option value="US">United States</option>
+                            <option value="MX">Mexico</option>
+                            <option value="ES">Spain</option>
+                          </select>
                         </div>
                         {formErrors.country && (
                           <span className={styles.fieldError}>

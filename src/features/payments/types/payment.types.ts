@@ -23,23 +23,30 @@ export interface TokenizeCardResponse {
 }
 
 export interface ProcessPaymentDto {
+  customerId: string;
+  customerEmail: string;
   amountInCents: number;
   currency: string;
-  customerEmail: string;
   paymentMethod: {
     type: string;
     token: string;
     installments: number;
+    sandbox_status?: string;
   };
-  customerData: {
-    phoneNumber: string;
-    fullName: string;
-  };
+  customerFullName: string;
+  customerPhoneNumber: string;
   shippingAddress: {
     addressLine1: string;
+    addressLine2?: string;
     city: string;
     region: string;
     country: string;
+    phoneNumber: string;
+    postalCode?: string;
+  };
+  metadata?: {
+    orderId?: string;
+    productIds?: string[];
   };
 }
 

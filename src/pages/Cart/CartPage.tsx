@@ -12,10 +12,12 @@ import styles from './CartPage.module.css';
 import EmailModal from '../../shared/ui/EmailModal/EmailModal';
 import type { NewCustomerData } from '../../shared/ui/EmailModal/types';
 import { clientsService } from '../../features/clients/services/clients.service';
+import { useToast } from '../../shared/ui/Toast';
 
 export const CartPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { showSuccess, showError, showInfo } = useToast();
 
   // State for email modal
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
@@ -32,23 +34,45 @@ export const CartPage = () => {
 
     console.log(`Customer email: ${email}, Existing: ${isExisting}`);
 
-    if (isExisting) {
-      // Cliente existente - aplicar descuento de cliente fiel
-      console.log('Cliente existente - aplicar beneficios');
-    } else if (newCustomerData) {
-      // Nuevo cliente - crear en el backend
-      const createdClient = await clientsService.createClient({
-        fullName: newCustomerData.fullName,
-        email: email,
-        phone: newCustomerData.phone,
-        address: newCustomerData.address,
-        city: newCustomerData.city,
-        country: newCustomerData.country,
-        postalCode: newCustomerData.postalCode
-      });
+    let customerData = null;
 
-      console.log('Cliente creado exitosamente:', createdClient);
-      // El cliente fue creado exitosamente, los datos están disponibles en createdClient
+    try {
+      if (isExisting) {
+        // Cliente existente - buscar sus datos
+        console.log('Cliente existente - buscar datos');
+        const customers = await clientsService.getClients(email);
+        if (customers.length > 0) {
+          customerData = customers[0];
+          showInfo(`Welcome back, ${customerData.fullName}!`);
+        }
+      } else if (newCustomerData) {
+        // Nuevo cliente - crear en el backend
+        const createdClient = await clientsService.createClient({
+          fullName: newCustomerData.fullName,
+          email: email,
+          phone: newCustomerData.phone,
+          address: newCustomerData.address,
+          city: newCustomerData.city,
+          country: newCustomerData.country,
+          postalCode: newCustomerData.postalCode
+        });
+
+        console.log('Cliente creado exitosamente:', createdClient);
+        customerData = createdClient;
+        showSuccess(`Account created successfully! Welcome, ${newCustomerData.fullName}!`);
+      }
+
+      // Navegar al checkout pasando los datos del cliente
+      if (customerData) {
+        navigate('/checkout', {
+          state: {
+            customer: customerData
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error handling customer:', error);
+      showError('There was an error processing your request. Please try again.');
     }
   };
   const calculateSummary = (): CartSummaryType => {
