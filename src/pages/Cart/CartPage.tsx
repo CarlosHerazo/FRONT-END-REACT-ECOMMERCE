@@ -10,6 +10,8 @@ import Icon from '../../shared/ui/Icon';
 import type { CartSummary as CartSummaryType } from './../../features/cart/types/cart.types';
 import styles from './CartPage.module.css';
 import EmailModal from '../../shared/ui/EmailModal/EmailModal';
+import type { NewCustomerData } from '../../shared/ui/EmailModal/types';
+import { clientsService } from '../../features/clients/services/clients.service';
 
 export const CartPage = () => {
   const navigate = useNavigate();
@@ -24,16 +26,29 @@ export const CartPage = () => {
   const cartItems = useAppSelector((state) => state.cart.items);
 
   // buscar cliente
-   const handleEmailSubmit = (email: string, isExisting: boolean) => {
+   const handleEmailSubmit = async (email: string, isExisting: boolean, newCustomerData?: NewCustomerData): Promise<void> => {
     setCustomerEmail(email);
     setIsExistingCustomer(isExisting);
-    
-    // Aquí puedes hacer algo con la información del cliente
+
     console.log(`Customer email: ${email}, Existing: ${isExisting}`);
-    
-    // Por ejemplo, actualizar el carrito con descuentos si es cliente existente
+
     if (isExisting) {
-      // Aplicar descuento de cliente fiel
+      // Cliente existente - aplicar descuento de cliente fiel
+      console.log('Cliente existente - aplicar beneficios');
+    } else if (newCustomerData) {
+      // Nuevo cliente - crear en el backend
+      const createdClient = await clientsService.createClient({
+        fullName: newCustomerData.fullName,
+        email: email,
+        phone: newCustomerData.phone,
+        address: newCustomerData.address,
+        city: newCustomerData.city,
+        country: newCustomerData.country,
+        postalCode: newCustomerData.postalCode
+      });
+
+      console.log('Cliente creado exitosamente:', createdClient);
+      // El cliente fue creado exitosamente, los datos están disponibles en createdClient
     }
   };
   const calculateSummary = (): CartSummaryType => {
@@ -128,8 +143,9 @@ export const CartPage = () => {
           {/* Right Column: Cart Summary */}
           <div className={styles.cartSummarySection}>
             <CartSummary
+              
               summary={summary}
-              onCheckout={handleCheckout}
+              onCheckout={ cartItems.length === 0 ? undefined : handleCheckout}
               onApplyPromoCode={handleApplyPromoCode}
             />
             

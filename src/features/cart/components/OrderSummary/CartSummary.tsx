@@ -60,7 +60,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
           </div>
           <div className={styles.totalAmount}>
             <span className={styles.totalValue}>{formatPrice(summary.total)}</span>
-            <span className={styles.currency}>USD</span>
+            <span className={styles.currency}>COP</span>
           </div>
         </div>
       </div>
@@ -68,6 +68,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
       <button
         className={styles.checkoutButton}
         onClick={onCheckout}
+        disabled={!onCheckout}
         aria-label="Proceed to checkout"
       >
         <span>Proceed to Checkout</span>

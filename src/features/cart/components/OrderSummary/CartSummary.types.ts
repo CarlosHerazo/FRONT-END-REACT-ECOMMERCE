@@ -5,6 +5,6 @@ export interface CartSummaryProps {
     tax: number;
     total: number;
   };
-  onCheckout: () => void;
+  onCheckout?: () => void;
   onApplyPromoCode?: (code: string) => void;
 }

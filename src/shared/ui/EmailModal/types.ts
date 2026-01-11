@@ -1,7 +1,7 @@
 export interface EmailModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onEmailSubmit: (email: string, isExistingCustomer: boolean, newCustomerData?: NewCustomerData) => void;
+  onEmailSubmit: (email: string, isExistingCustomer: boolean, newCustomerData?: NewCustomerData) => Promise<void>;
 }
 
 export interface CustomerInfo {
@@ -15,7 +15,8 @@ export interface CustomerInfo {
 export interface NewCustomerData {
   fullName: string;
   phone: string;
-  address?: string;
-  city?: string;
-  country?: string;
+  address: string;
+  city: string;
+  country: string;
+  postalCode: string;
 }

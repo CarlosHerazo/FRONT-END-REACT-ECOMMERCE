@@ -3,12 +3,14 @@ import type { EmailModalProps } from './types';
 import styles from './EmailModal.module.css'; // Importa los estilos como módulo
 import Icon from '../Icon';
 import { useEmailModal } from './useEmailModal';
+import { useNavigate } from 'react-router-dom';
 
 const EmailModal: React.FC<EmailModalProps> = ({
   isOpen,
   onClose,
   onEmailSubmit
 }) => {
+  const navigate = useNavigate();
   const {
     email,
     setEmail,
@@ -22,23 +24,42 @@ const EmailModal: React.FC<EmailModalProps> = ({
     newCustomerData,
     handleFormChange,
     formErrors,
-    validateNewCustomerForm
+    validateNewCustomerForm,
+    creationStatus,
+    setCreationStatus,
+    creationError,
+    setCreationError
   } = useEmailModal(isOpen);
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (searchResult) {
       if (searchResult.isExisting) {
-        // Cliente existente
+        // navegar al checkout como cliente existente
         onEmailSubmit(searchResult.email, true);
         onClose();
+        navigate('/checkout');
       } else {
-        // Nuevo cliente - validar formulario
+        // Nuevo cliente - validar formulario primero
         if (validateNewCustomerForm()) {
-          onEmailSubmit(searchResult.email, false, newCustomerData);
-          onClose();
+          setCreationStatus('creating');
+
+          try {
+            // Intentar crear el cliente
+            await onEmailSubmit(searchResult.email, false, newCustomerData);
+            setCreationStatus('success');
+          } catch (error) {
+            setCreationStatus('error');
+            setCreationError(error instanceof Error ? error.message : 'Error al crear el cliente');
+          }
         }
       }
     }
+  };
+
+  const handleProceedToCheckout = () => {
+    // Cerrar modal y proceder al checkout
+    onClose();
+    navigate('/checkout');
   };
 
   if (!isOpen) return null;
@@ -165,37 +186,207 @@ const EmailModal: React.FC<EmailModalProps> = ({
                 </div>
               ) : (
                 <div className={styles.newCustomer}>
-                  <div className={`${styles.resultIcon} ${styles.info}`}>
-                    <Icon name="person_add" />
-                  </div>
-                  <h3 className={styles.resultTitle}>New Customer</h3>
-                  <p className={styles.resultSubtitle}>
-                    We couldn't find an account with this email.
-                  </p>
-                  
-                  <div className={styles.newCustomerCard}>
+                  {creationStatus === 'success' ? (
+                    // Vista de éxito
+                    <>
+                      <div className={`${styles.resultIcon} ${styles.success}`}>
+                        <Icon name="check_circle" />
+                      </div>
+                      <h3 className={styles.resultTitle}>Registration Successful!</h3>
+                      <p className={styles.resultSubtitle}>
+                        Your account has been created successfully.
+                      </p>
+
+                      <div className={styles.customerDetails}>
+                        <div className={styles.detailRow}>
+                          <span className={styles.detailLabel}>Name:</span>
+                          <span className={styles.detailValue}>{newCustomerData.fullName}</span>
+                        </div>
+                        <div className={styles.detailRow}>
+                          <span className={styles.detailLabel}>Email:</span>
+                          <span className={`${styles.detailValue} ${styles.emailValue}`}>{searchResult?.email}</span>
+                        </div>
+                        <div className={styles.detailRow}>
+                          <span className={styles.detailLabel}>Phone:</span>
+                          <span className={styles.detailValue}>{newCustomerData.phone}</span>
+                        </div>
+                      </div>
+                    </>
+                  ) : creationStatus === 'error' ? (
+                    // Vista de error
+                    <>
+                      <div className={`${styles.resultIcon} ${styles.error}`}>
+                        <Icon name="error" />
+                      </div>
+                      <h3 className={styles.resultTitle}>Registration Failed</h3>
+                      <p className={styles.resultSubtitle}>
+                        {creationError || 'There was an error creating your account. Please try again.'}
+                      </p>
+                    </>
+                  ) : (
+                    // Formulario de registro
+                    <>
+                      <div className={`${styles.resultIcon} ${styles.info}`}>
+                        <Icon name="person_add" />
+                      </div>
+                      <h3 className={styles.resultTitle}>New Customer</h3>
+                      <p className={styles.resultSubtitle}>
+                        Please complete your information to continue.
+                      </p>
+
+                      <form className={styles.newCustomerForm}>
                     <div className={styles.customerEmailDisplay}>
                       <Icon name="mail" />
                       <span>{searchResult?.email}</span>
                     </div>
-                    
-                    <div className={styles.welcomeMessage}>
-                      <p className={styles.welcomeTitle}>Welcome to ShopModern!</p>
-                      <p className={styles.welcomeText}>
-                        Continue as a guest or create an account to enjoy exclusive benefits.
-                      </p>
+
+                    {/* Nombre Completo */}
+                    <div className={styles.formGroup}>
+                      <label htmlFor="fullName" className={styles.formLabel}>
+                        Full Name <span className={styles.required}>*</span>
+                      </label>
+                      <div className={styles.inputWrapper}>
+                        <Icon name="person" className={styles.inputIcon} />
+                        <input
+                          id="fullName"
+                          type="text"
+                          value={newCustomerData.fullName}
+                          onChange={(e) => handleFormChange('fullName', e.target.value)}
+                          placeholder="John Doe"
+                          className={`${styles.formInput} ${formErrors.fullName ? styles.inputError : ''}`}
+                        />
+                      </div>
+                      {formErrors.fullName && (
+                        <span className={styles.fieldError}>
+                          <Icon name="error" />
+                          {formErrors.fullName}
+                        </span>
+                      )}
                     </div>
-                    
-                    <div className={styles.newCustomerBenefits}>
-                      <h4 className={styles.benefitsTitle}>Create an account to get:</h4>
-                      <ul className={styles.benefitsList}>
-                        <li>Faster checkout</li>
-                        <li>Order tracking</li>
-                        <li>Wishlist access</li>
-                        <li>Special offers</li>
-                      </ul>
+
+                    {/* Teléfono */}
+                    <div className={styles.formGroup}>
+                      <label htmlFor="phone" className={styles.formLabel}>
+                        Phone <span className={styles.required}>*</span>
+                      </label>
+                      <div className={styles.inputWrapper}>
+                        <Icon name="phone" className={styles.inputIcon} />
+                        <input
+                          id="phone"
+                          type="tel"
+                          value={newCustomerData.phone}
+                          onChange={(e) => handleFormChange('phone', e.target.value)}
+                          placeholder="+1 234 567 8900"
+                          className={`${styles.formInput} ${formErrors.phone ? styles.inputError : ''}`}
+                        />
+                      </div>
+                      {formErrors.phone && (
+                        <span className={styles.fieldError}>
+                          <Icon name="error" />
+                          {formErrors.phone}
+                        </span>
+                      )}
                     </div>
-                  </div>
+
+                    {/* Dirección */}
+                    <div className={styles.formGroup}>
+                      <label htmlFor="address" className={styles.formLabel}>
+                        Address <span className={styles.required}>*</span>
+                      </label>
+                      <div className={styles.inputWrapper}>
+                        <Icon name="home" className={styles.inputIcon} />
+                        <input
+                          id="address"
+                          type="text"
+                          value={newCustomerData.address}
+                          onChange={(e) => handleFormChange('address', e.target.value)}
+                          placeholder="123 Main Street"
+                          className={`${styles.formInput} ${formErrors.address ? styles.inputError : ''}`}
+                        />
+                      </div>
+                      {formErrors.address && (
+                        <span className={styles.fieldError}>
+                          <Icon name="error" />
+                          {formErrors.address}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Ciudad y País en dos columnas */}
+                    <div className={styles.formRow}>
+                      <div className={styles.formGroup}>
+                        <label htmlFor="city" className={styles.formLabel}>
+                          City <span className={styles.required}>*</span>
+                        </label>
+                        <div className={styles.inputWrapper}>
+                          <Icon name="location_city" className={styles.inputIcon} />
+                          <input
+                            id="city"
+                            type="text"
+                            value={newCustomerData.city}
+                            onChange={(e) => handleFormChange('city', e.target.value)}
+                            placeholder="New York"
+                            className={`${styles.formInput} ${formErrors.city ? styles.inputError : ''}`}
+                          />
+                        </div>
+                        {formErrors.city && (
+                          <span className={styles.fieldError}>
+                            <Icon name="error" />
+                            {formErrors.city}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label htmlFor="country" className={styles.formLabel}>
+                          Country <span className={styles.required}>*</span>
+                        </label>
+                        <div className={styles.inputWrapper}>
+                          <Icon name="public" className={styles.inputIcon} />
+                          <input
+                            id="country"
+                            type="text"
+                            value={newCustomerData.country}
+                            onChange={(e) => handleFormChange('country', e.target.value)}
+                            placeholder="United States"
+                            className={`${styles.formInput} ${formErrors.country ? styles.inputError : ''}`}
+                          />
+                        </div>
+                        {formErrors.country && (
+                          <span className={styles.fieldError}>
+                            <Icon name="error" />
+                            {formErrors.country}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Código Postal */}
+                    <div className={styles.formGroup}>
+                      <label htmlFor="postalCode" className={styles.formLabel}>
+                        Postal Code <span className={styles.required}>*</span>
+                      </label>
+                      <div className={styles.inputWrapper}>
+                        <Icon name="markunread_mailbox" className={styles.inputIcon} />
+                        <input
+                          id="postalCode"
+                          type="text"
+                          value={newCustomerData.postalCode}
+                          onChange={(e) => handleFormChange('postalCode', e.target.value)}
+                          placeholder="10001"
+                          className={`${styles.formInput} ${formErrors.postalCode ? styles.inputError : ''}`}
+                        />
+                      </div>
+                      {formErrors.postalCode && (
+                        <span className={styles.fieldError}>
+                          <Icon name="error" />
+                          {formErrors.postalCode}
+                        </span>
+                      )}
+                    </div>
+                  </form>
+                    </>
+                  )}
                 </div>
               )}
             </div>
@@ -234,31 +425,71 @@ const EmailModal: React.FC<EmailModalProps> = ({
             </>
           ) : (
             <>
-              <button 
-                className={styles.modalSecondaryBtn}
-                onClick={handleEditEmail}
-                type="button"
-              >
-                <Icon name="edit" />
-                Edit Email
-              </button>
-              <button 
-                className={styles.modalPrimaryBtn}
-                onClick={handleContinue}
-                type="button"
-              >
-                {searchResult?.isExisting ? (
-                  <>
-                    <Icon name="login" />
-                    Continue as {searchResult.name?.split(' ')[0]}
-                  </>
-                ) : (
-                  <>
-                    <Icon name="shopping_cart" />
-                    Continue as Guest
-                  </>
-                )}
-              </button>
+              {creationStatus === 'success' ? (
+                // Botón de proceder al pago cuando la creación es exitosa
+                <button
+                  className={styles.modalPrimaryBtn}
+                  onClick={handleProceedToCheckout}
+                  type="button"
+                >
+                  <Icon name="shopping_cart" />
+                  Proceed to Checkout
+                </button>
+              ) : creationStatus === 'error' ? (
+                // Botones cuando hay error
+                <>
+                  <button
+                    className={styles.modalSecondaryBtn}
+                    onClick={() => setCreationStatus('idle')}
+                    type="button"
+                  >
+                    <Icon name="arrow_back" />
+                    Try Again
+                  </button>
+                  <button
+                    className={styles.modalSecondaryBtn}
+                    onClick={onClose}
+                    type="button"
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                // Botones normales
+                <>
+                  <button
+                    className={styles.modalSecondaryBtn}
+                    onClick={handleEditEmail}
+                    type="button"
+                  >
+                    <Icon name="edit" />
+                    Edit Email
+                  </button>
+                  <button
+                    className={styles.modalPrimaryBtn}
+                    onClick={handleContinue}
+                    type="button"
+                    disabled={creationStatus === 'creating'}
+                  >
+                    {searchResult?.isExisting ? (
+                      <>
+                        <Icon name="login" />
+                        Continue as {searchResult.name?.split(' ')[0]}
+                      </>
+                    ) : creationStatus === 'creating' ? (
+                      <>
+                        <span className={styles.spinner}></span>
+                        Creating Account...
+                      </>
+                    ) : (
+                      <>
+                        <Icon name="check_circle" />
+                        Complete Registration
+                      </>
+                    )}
+                  </button>
+                </>
+              )}
             </>
           )}
         </div>

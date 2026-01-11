@@ -13,9 +13,12 @@ export const useEmailModal = (isOpen: boolean) => {
     phone: '',
     address: '',
     city: '',
-    country: ''
+    country: '',
+    postalCode: ''
   });
   const [formErrors, setFormErrors] = useState<Partial<Record<keyof NewCustomerData, string>>>({});
+  const [creationStatus, setCreationStatus] = useState<'idle' | 'creating' | 'success' | 'error'>('idle');
+  const [creationError, setCreationError] = useState('');
 
   // Limpiar estado al cerrar
   useEffect(() => {
@@ -30,9 +33,12 @@ export const useEmailModal = (isOpen: boolean) => {
         phone: '',
         address: '',
         city: '',
-        country: ''
+        country: '',
+        postalCode: ''
       });
       setFormErrors({});
+      setCreationStatus('idle');
+      setCreationError('');
     }
   }, [isOpen]);
 
@@ -54,10 +60,9 @@ export const useEmailModal = (isOpen: boolean) => {
 
     try {
       // Buscar cliente por email usando el servicio
-      const clients = await clientsService.getClientsByEmailDomain({ email: email });
-      const customer = clients.find(c => c.email === email);
+      const customer = await clientsService.getClientByEmail({ email: email });
 
-      if (customer) {
+      if (customer && customer.id) {
         // Cliente existente encontrado
         setSearchResult({
           email: customer.email,
@@ -81,7 +86,12 @@ export const useEmailModal = (isOpen: boolean) => {
       setShowResult(true);
     } catch (error) {
       console.error('Error al buscar cliente:', error);
-      setError('El cliente no existe o hubo un error en la búsqueda.');
+      // Si hay un error, tratar como nuevo cliente
+      setSearchResult({
+        email,
+        isExisting: false
+      });
+      setShowResult(true);
     } finally {
       setIsLoading(false);
     }
@@ -121,6 +131,22 @@ export const useEmailModal = (isOpen: boolean) => {
       errors.phone = 'Formato de teléfono inválido';
     }
 
+    if (!newCustomerData.address.trim()) {
+      errors.address = 'La dirección es requerida';
+    }
+
+    if (!newCustomerData.city.trim()) {
+      errors.city = 'La ciudad es requerida';
+    }
+
+    if (!newCustomerData.country.trim()) {
+      errors.country = 'El país es requerido';
+    }
+
+    if (!newCustomerData.postalCode.trim()) {
+      errors.postalCode = 'El código postal es requerido';
+    }
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -138,6 +164,10 @@ export const useEmailModal = (isOpen: boolean) => {
     newCustomerData,
     handleFormChange,
     formErrors,
-    validateNewCustomerForm
+    validateNewCustomerForm,
+    creationStatus,
+    setCreationStatus,
+    creationError,
+    setCreationError
   };
 };

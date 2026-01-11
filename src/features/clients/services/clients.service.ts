@@ -49,19 +49,18 @@ export class ClientsService {
         return httpClient.patch<Client>(`${this.baseEndpoint}/${id}`, data);
     }
     /**
-     * Get clients by email domain
-     * @param domain - Email domain to filter by
-     * @returns Promise<Client[]> Filtered clients
+     * Get client by email
+     * @param domain - Email to search
+     * @returns Promise<Client | null> Client if found, null otherwise
      **/
-      async getClientsByEmailDomain(domain: GetClientsDto): Promise<Client[]> {
-        let client: Client[] = [];
+    async getClientByEmail(domain: GetClientsDto): Promise<Client | null> {
         try {
-             client = await httpClient.get<Client[]>(`${this.baseEndpoint}?email=${domain.email}`);
+            const client = await httpClient.get<Client>(`${this.baseEndpoint}?email=${domain.email}`);
+            return client;
         } catch {
-            throw new Error("Invalid email format");
+            // Si hay error (500, 404, etc.), el cliente no existe
+            return null;
         }
-       
-        return client;
     }
    
 }

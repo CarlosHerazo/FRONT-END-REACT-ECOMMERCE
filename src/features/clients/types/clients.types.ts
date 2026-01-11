@@ -3,7 +3,7 @@
  */
 
 export interface CreateClientDto {
-  name: string;
+  fullName: string;
   email: string;
   phone: string;
   address: string;
@@ -33,7 +33,7 @@ export interface Client {
  * Matches PATCH /clients/:id request
  */
 export interface UpdateClientDto {
-  name?: string;
+  fullName?: string;
   phone?: string;
   address?: string;
   city?: string;

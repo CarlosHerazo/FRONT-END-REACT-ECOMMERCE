@@ -5,6 +5,7 @@ import { ProductDetailPage } from './pages/ProductDetail';
 import { CartPage } from './pages/Cart/CartPage';
 
 import './styles/globals.css';
+import { CheckoutPage } from './pages/Checkout/CheckoutPage';
 
 /**
  * App Component - Root component
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/home" element={<HomePage />} />
             <Route path="/products/:id" element={<ProductDetailPage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </main>
         <Footer />
