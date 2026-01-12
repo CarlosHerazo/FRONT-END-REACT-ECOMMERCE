@@ -1,64 +1,18 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useProduct } from '../../features/products/hooks';
 import ProductDetail from '../../features/products/components/DetailProduct/DetailProduct';
-import { useAppDispatch } from '../../store/hooks';
-import { addItem } from '../../features/cart/store/cartSlice';
-import { useToast } from '../../shared/ui/Toast';
+import { useProductDetailPage } from '../../features/products/hooks/useProductDetail';
 import styles from './ProductDetailPage.module.css';
 
 export const ProductDetailPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { showSuccess, showInfo } = useToast();
-  const { product, loading, error } = useProduct(id || '');
-  const [quantity, setQuantity] = useState(1);
-
-  const handleAddToCart = (_productId: string) => {
-    if (!product) return;
-
-    // Add items to cart based on quantity
-    for (let i = 0; i < quantity; i++) {
-      dispatch(addItem({
-        id: product.id,
-        name: product.name,
-        sku: `SKU-${product.id}`,
-        price: product.price,
-        imageUrl: product.imgUrl,
-        description: product.description,
-      }));
-    }
-
-    showSuccess(`¡${quantity} x ${product.name} agregado al carrito!`);
-  };
-
-  const handleBuyNow = (_productId: string) => {
-    if (!product) return;
-
-    // Add items to cart
-    for (let i = 0; i < quantity; i++) {
-      dispatch(addItem({
-        id: product.id,
-        name: product.name,
-        sku: `SKU-${product.id}`,
-        price: product.price,
-        imageUrl: product.imgUrl,
-        description: product.description,
-      }));
-    }
-
-    showInfo('Redirigiendo al carrito...');
-
-    // Navigate to cart page
-    setTimeout(() => {
-      navigate('/cart');
-    }, 500);
-  };
-
-  const handleQuantityChange = (newQuantity: number) => {
-    setQuantity(newQuantity);
-  };
+  const {
+    product,
+    loading,
+    error,
+    quantity,
+    handleQuantityChange,
+    handleAddToCart,
+    handleBuyNow,
+    handleGoHome,
+  } = useProductDetailPage();
 
   if (loading) {
     return (
@@ -84,10 +38,7 @@ export const ProductDetailPage = () => {
         <div className={styles.errorContainer}>
           <h2 className={styles.errorTitle}>Error al cargar el producto</h2>
           <p className={styles.errorMessage}>{error.message}</p>
-          <button
-            onClick={() => navigate('/')}
-            className={styles.errorButton}
-          >
+          <button onClick={handleGoHome} className={styles.errorButton}>
             Volver al Inicio
           </button>
         </div>
@@ -103,10 +54,7 @@ export const ProductDetailPage = () => {
           <p className={styles.notFoundMessage}>
             El producto que buscas no existe.
           </p>
-          <button
-            onClick={() => navigate('/')}
-            className={styles.notFoundButton}
-          >
+          <button onClick={handleGoHome} className={styles.notFoundButton}>
             Volver al Inicio
           </button>
         </div>
@@ -121,6 +69,7 @@ export const ProductDetailPage = () => {
         onAddToCart={handleAddToCart}
         onBuyNow={handleBuyNow}
         onQuantityChange={handleQuantityChange}
+        quantity={quantity}
       />
     </div>
   );

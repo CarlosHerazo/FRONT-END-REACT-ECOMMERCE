@@ -14,6 +14,7 @@ export interface Product {
 
 export interface ProductDetailProps {
   product: Product;
+  quantity: number;
   onAddToCart?: (productId: string) => void;
   onBuyNow?: (productId: string) => void;
   onQuantityChange?: (quantity: number) => void;
