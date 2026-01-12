@@ -43,7 +43,7 @@ export const HomePage = () => {
 
   const handleToggleFavorite = (productId: string) => {
     console.log('Toggled favorite:', productId);
-    // TODO: Implementar lógica de favoritos
+    // TODO: lógica de favoritos
   };
 
   const handleCategoryChange = (category: string) => {
@@ -89,7 +89,7 @@ export const HomePage = () => {
               ? 'Cargando productos...'
               : isFiltering && products.length === 0
               ? 'No se encontraron productos'
-              : `Descubre nuestra selección curada de ${products.length} artículos`}
+              : `Disponibles: ${products.length}`}
           </p>
         </div>
       </div>

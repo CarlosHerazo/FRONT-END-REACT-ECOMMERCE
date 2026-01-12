@@ -6,6 +6,7 @@ import Icon from '../../../../shared/ui/Icon';
 import type { ProductDetailProps, StorageOption, ReviewSummary } from './ProductDetail.types';
 import styles from './ProductDetail.module.css';
 import { formatPrice } from '../../../../utils/utils';
+import { Breadcrumbs } from '../../../../shared/ui';
 
 const ProductDetail: React.FC<ProductDetailProps> = ({
   product,
@@ -124,13 +125,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
   return (
     <div className={styles.productDetail}>
       {/* Breadcrumbs */}
-      <nav className={styles.breadcrumbs}>
-        <a href="#" className={styles.breadcrumbLink}>Inicio</a>
-        <span className={styles.breadcrumbSeparator}>/Productos</span>
-        <span className={styles.breadcrumbSeparator}>/Detalle</span>
-        <span className={styles.breadcrumbCurrent}>{product.name}</span>
-      </nav>
-
+      <Breadcrumbs items={[
+        { label: 'Inicio', href: '/Home' },
+        { label: 'Productos', href: '/products' },
+        { label: 'Detalle' },
+        { label: product.name }
+      ]} />
       <div className={styles.productGrid}>
         {/* Columna Izquierda: Galería */}
         <div className={styles.galleryColumn}>

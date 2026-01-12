@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Breadcrumbs.module.css';
 import Icon from '../Icon';
+import { Link } from 'react-router-dom';
 
 interface BreadcrumbsProps {
   items: { label: string; href?: string }[];
@@ -15,9 +16,9 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
             <Icon name="chevron_right" />
           )}
           {item.href ? (
-            <a href={item.href} className={styles.breadcrumbLink}>
+            <Link to={item.href} className={styles.breadcrumbLink}>
               {item.label}
-            </a>
+            </Link>
           ) : (
             <span className={styles.breadcrumbCurrent}>{item.label}</span>
           )}
