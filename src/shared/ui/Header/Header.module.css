@@ -20,6 +20,44 @@
   gap: 2rem;
 }
 
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary-light);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.menuButton:hover {
+  background-color: var(--color-border-light);
+}
+
+.dark .menuButton {
+  color: var(--color-text-secondary-dark);
+}
+
+.dark .menuButton:hover {
+  background-color: var(--color-border-dark);
+}
+
+@media (min-width: 768px) {
+  .menuButton {
+    display: none;
+  }
+}
+
 .logoSection {
   display: flex;
   align-items: center;
@@ -44,6 +82,12 @@
   font-size: 1.25rem;
   font-weight: 900;
   letter-spacing: -0.025em;
+}
+
+@media (max-width: 480px) {
+  .logoText {
+    display: none;
+  }
 }
 
 .dark .logoText {
