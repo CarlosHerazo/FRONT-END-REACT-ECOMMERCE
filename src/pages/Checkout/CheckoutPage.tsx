@@ -162,6 +162,8 @@ export function CheckoutPage() {
               shipping={summary.shipping}
               tax={summary.tax}
               total={summary.total}
+              discount={summary.discount}
+              promoCode={summary.promoCode}
             />
           </div>
         </div>

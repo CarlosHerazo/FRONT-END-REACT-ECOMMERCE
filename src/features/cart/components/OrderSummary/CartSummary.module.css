@@ -177,3 +177,48 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.promoInfo{
+  font-size: 1rem;
+  margin-right: 0.25rem;
+  color: var(--color-primary);
+}
+
+.promoPromptContainer {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0.5rem 0;
+}
+
+.promoPrompt {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary-light);
+}
+
+.promoCode {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+}
+.appliedPromo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem  0;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(16, 185, 129, 0.1);
+  border-radius: 6px;
+}
+
+.textAppliedPromo {
+  font-size: 0.875rem;
+  color: var(--color-green); 
+  font-weight: 500;
+}
+
+.discountAmount {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-green);
+}

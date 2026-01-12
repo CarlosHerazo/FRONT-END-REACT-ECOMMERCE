@@ -14,6 +14,8 @@ export interface CheckoutSummary {
   shipping: number;
   tax: number;
   total: number;
+  discount: number;
+  promoCode: string;
 }
 
 export function useCheckout() {
@@ -27,6 +29,7 @@ export function useCheckout() {
 
   // Datos del carrito desde Redux
   const cartItems = useAppSelector((state) => state.cart.items);
+  const { discount = 0, promoCode = '' } = useAppSelector((state) => state.cart);
 
   // Estados del formulario
   const [cardData, setCardData] = useState<CreditCardData>({
@@ -76,9 +79,10 @@ export function useCheckout() {
     const subtotal = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
     const shipping = subtotal > 20000 || cartItems.length === 0 ? 0 : 3000;
     const tax = subtotal * 0.02;
-    const total = subtotal + shipping + tax;
+    const currentDiscount = discount || 0;
+    const total = Math.max(subtotal + shipping + tax - currentDiscount, 0);
 
-    return { subtotal, shipping, tax, total };
+    return { subtotal, shipping, tax, total, discount: currentDiscount, promoCode };
   };
 
   /**

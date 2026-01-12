@@ -16,6 +16,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
       onApplyPromoCode(promoCode.trim());
       setPromoCode('');
     }
+
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -71,6 +72,25 @@ const CartSummary: React.FC<CartSummaryProps> = ({
       </button>
 
       <div className={styles.promoSection}>
+        <div className={styles.promoInfo}>
+          {summary.discount && summary.discount > 0 ? (
+            <div className={styles.appliedPromo}>
+              <span className={styles.textAppliedPromo}>Código "{summary.promoCode}" aplicado:</span>
+              <span className={styles.discountAmount}>
+                -{formatPrice(summary.discount)}
+              </span>
+            </div>
+          ) : (
+            <div className={styles.promoPromptContainer}>
+             
+              <span className={styles.promoPrompt}>
+                ¿Tienes un código promocional? APLICA:  <span className={styles.promoCode}>DESCUENTO10</span>
+              </span>
+              
+            </div>
+          )}
+        </div>
+
         <div className={styles.promoInputWrapper}>
           <input
             className={styles.promoInput}
@@ -78,7 +98,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
             placeholder="Código promocional"
             value={promoCode}
             onChange={(e) => setPromoCode(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
             aria-label="Ingresa código promocional"
           />
           <button

@@ -10,6 +10,8 @@ interface OrderSummaryProps {
   shipping: number;
   tax: number;
   total: number;
+  discount?: number;
+  promoCode?: string;
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
@@ -18,6 +20,8 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
   shipping,
   tax,
   total,
+  discount = 0,
+  promoCode = '',
 }) => {
 
   return (
@@ -61,6 +65,13 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
           <span className={styles.rowLabel}>Impuesto</span>
           <span className={styles.rowValue}>{formatPrice(tax)}</span>
         </div>
+
+        {discount > 0 && (
+          <div className={styles.summaryRow}>
+            <span className={styles.rowLabel}>Descuento {promoCode && `(${promoCode})`}</span>
+            <span className={styles.rowValue}>-{formatPrice(discount)}</span>
+          </div>
+        )}
 
         <div className={styles.divider} />
 

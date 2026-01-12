@@ -13,6 +13,8 @@ export interface CartState {
   items: CartItem[];
   totalQuantity: number;
   totalPrice: number;
+  promoCode: string;
+  discount: number;
 }
 
 export interface CartSummary {
@@ -20,6 +22,8 @@ export interface CartSummary {
   shipping: number;
   tax: number;
   total: number;
+  discount?: number;
+  promoCode: string;
   itemsCount: number;
 }
 

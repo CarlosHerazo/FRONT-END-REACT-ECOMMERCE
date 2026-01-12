@@ -16,7 +16,7 @@
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -0.025em;
-  margin: 0;
+  margin: 1rem 0 0 0;
 }
 
 .pageSubtitle {
@@ -122,10 +122,6 @@
   border-radius: var(--radius-md);
   border: 1px solid #fecaca;
   font-size: 0.875rem;
-}
-
-.resultsSection {
-  /* Container for results */
 }
 
 .emptyState {

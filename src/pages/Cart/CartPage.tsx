@@ -1,178 +1,114 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { deleteItem, updateItemQuantity } from '../../features/cart/store/cartSlice';
 import CartItem from '../../features/cart/components/CartItem/CartItem';
 import CartSummary from '../../features/cart/components/OrderSummary/CartSummary';
 import TrustSignals from '../../features/cart/components/TrustSignals/TrustSignals';
 import PaymentMethods from '../../features/cart/components/PaymentMethods/PaymentMethods';
 import Icon from '../../shared/ui/Icon';
-import type { CartSummary as CartSummaryType } from './../../features/cart/types/cart.types';
-import styles from './CartPage.module.css';
 import EmailModal from '../../shared/ui/EmailModal/EmailModal';
-import type { NewCustomerData } from '../../shared/ui/EmailModal/types';
+import styles from './CartPage.module.css';
 import { clientsService } from '../../features/clients/services/clients.service';
 import { useToast } from '../../shared/ui/Toast';
+import type { NewCustomerData } from '../../shared/ui/EmailModal/types';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useCartPage } from '../../features/cart/hook/useCart';
+import EmptyCartState from '../../features/cart/components/EmptyCartState.tsx/EmptyCartState';
 
 export const CartPage = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const { showSuccess, showError, showInfo } = useToast();
 
-  // State for email modal
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  const [_customerEmail, setCustomerEmail] = useState<string>('');
+  const {
+    cartItems,
+    summary,
+    isEmailModalOpen,
+    setIsEmailModalOpen,
+    handleUpdateQuantity,
+    handleRemoveItem,
+    handleCheckout,
+    handleContinueShopping,
+    handleApplyPromoCode,
+  } = useCartPage();
+
+  const [_customerEmail, setCustomerEmail] = useState('');
   const [_isExistingCustomer, setIsExistingCustomer] = useState(false);
 
-  // Obtener items del carrito desde Redux
-  const cartItems = useAppSelector((state) => state.cart.items);
-
-  // buscar cliente
-   const handleEmailSubmit = async (email: string, isExisting: boolean, newCustomerData?: NewCustomerData): Promise<void> => {
+  const handleEmailSubmit = async (
+    email: string,
+    isExisting: boolean,
+    newCustomerData?: NewCustomerData
+  ) => {
     setCustomerEmail(email);
     setIsExistingCustomer(isExisting);
-    let customerData = null;
-    console.log('Email submitted:', email, 'Is existing:', isExisting, 'New customer data:', newCustomerData);
+
     try {
+      let customerData = null;
+
       if (isExisting) {
-        // Cliente existente - buscar sus datos
-        console.log('Cliente existente - buscar datos');
-        const customers = await clientsService.getClientByEmail({email:email});
-        console.log('Datos del cliente encontrado:', customers);
+        const customers = await clientsService.getClientByEmail({ email });
         if (customers) {
           customerData = customers;
           showInfo(`¡Bienvenido de nuevo, ${customers.fullName}!`);
         }
       } else if (newCustomerData) {
-        // Nuevo cliente - crear en el backend
-        const createdClient = await clientsService.createClient({
+        customerData = await clientsService.createClient({
           fullName: newCustomerData.fullName,
-          email: email,
+          email,
           phone: newCustomerData.phone,
           address: newCustomerData.address,
           city: newCustomerData.city,
           country: newCustomerData.country,
-          postalCode: newCustomerData.postalCode
+          postalCode: newCustomerData.postalCode,
         });
-        customerData = createdClient;
-        showSuccess(`¡Cuenta creada exitosamente! ¡Bienvenido, ${newCustomerData.fullName}!`);
+
+        showSuccess(`¡Cuenta creada exitosamente!`);
       }
 
-      // Navegar al checkout pasando los datos del cliente
       if (customerData) {
-        navigate('/checkout', {
-          state: {
-            customer: customerData
-          }
-        });
+        navigate('/checkout', { state: { customer: customerData } });
       }
     } catch (error) {
-      console.error('Error handling customer:', error);
-      showError('Hubo un error al procesar tu solicitud. Por favor, intenta de nuevo.');
+      console.error(error);
+      showError('Hubo un error al procesar tu solicitud');
     }
   };
-  const calculateSummary = (): CartSummaryType => {
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = subtotal > 20000 || cartItems.length === 0 ? 0 : 3000;
-    const tax = subtotal * 0.08;
-    const total = subtotal + shipping + tax;
-
-    return {
-      subtotal,
-      shipping,
-      tax,
-      total,
-      itemsCount: cartItems.reduce((sum, item) => sum + item.quantity, 0)
-    };
-  };
-
-  const handleUpdateQuantity = (id: string, quantity: number) => {
-    dispatch(updateItemQuantity({ id, quantity }));
-  };
-
-  const handleRemoveItem = (id: string) => {
-    dispatch(deleteItem(id));
-  };
-
-  const handleCheckout = () => {
-    // Abrir el modal de email para buscar el cliente
-    setIsEmailModalOpen(true);
-  };
-
-  const handleApplyPromoCode = (code: string) => {
-    console.log('Applying promo code:', code);
-    // Aquí iría la lógica para aplicar el código promocional
-  };
-
-  const handleContinueShopping = () => {
-    navigate('/products');
-  };
-
-  const summary = calculateSummary();
 
   return (
     <div className={styles.cartPage}>
       <div className="container">
-        {/* Page Header */}
         <div className={styles.pageHeader}>
           <h1 className={styles.pageTitle}>
-            Tu Carrito <span className={styles.itemsCount}>({summary.itemsCount} artículos)</span>
+            Carrito <span className={styles.itemsCount}>({summary.itemsCount} artículos)</span>
           </h1>
-          <button
-            className={styles.continueShoppingButton}
-            onClick={handleContinueShopping}
-          >
-            <Icon name="arrow_back" />
-            Continuar Comprando
+          <button className={styles.continueShoppingButton} onClick={handleContinueShopping}>
+            <Icon name="arrow_back" /> Continuar Comprando
           </button>
         </div>
 
-        {/* Main Content Grid */}
         <div className={styles.cartGrid}>
-          {/* Left Column: Cart Items */}
           <div className={styles.cartItemsSection}>
-            {cartItems.length > 0 ? (
-              <div className={styles.cartItemsList}>
-                {cartItems.map((item) => (
-                  <CartItem
-                    key={item.id}
-                    item={item}
-                    onUpdateQuantity={handleUpdateQuantity}
-                    onRemove={handleRemoveItem}
-                  />
-                ))}
-              </div>
+            {cartItems.length ? (
+              cartItems.map((item) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  onUpdateQuantity={handleUpdateQuantity}
+                  onRemove={handleRemoveItem}
+                />
+              ))
             ) : (
-              <div className={styles.emptyCart}>
-                <Icon name="shopping_cart" />
-                <h3>Tu carrito está vacío</h3>
-                <p>Agrega algunos artículos para comenzar</p>
-                <button
-                  className={styles.shopButton}
-                  onClick={handleContinueShopping}
-                >
-                  Comenzar a Comprar
-                </button>
-              </div>
+              <EmptyCartState onContinueShopping={handleContinueShopping} />
             )}
-
-            {/* Trust Signals */}
             <TrustSignals />
           </div>
 
-          {/* Right Column: Cart Summary */}
           <div className={styles.cartSummarySection}>
             <CartSummary
-              
               summary={summary}
-              onCheckout={ cartItems.length === 0 ? undefined : handleCheckout}
+              onCheckout={cartItems.length ? handleCheckout : undefined}
               onApplyPromoCode={handleApplyPromoCode}
             />
-            
-            {/* Payment Methods */}
             <PaymentMethods />
-
-             <EmailModal
+            <EmailModal
               isOpen={isEmailModalOpen}
               onClose={() => setIsEmailModalOpen(false)}
               onEmailSubmit={handleEmailSubmit}
@@ -183,4 +119,3 @@ export const CartPage = () => {
     </div>
   );
 };
-

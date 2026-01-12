@@ -27,6 +27,7 @@
 
 .itemsCount {
   font-weight: 500;
+  font-size: 1rem;
   color: var(--color-text-secondary-light);
 }
 
@@ -132,4 +133,24 @@
     position: sticky;
     top: 6rem;
   }
+}
+
+.continueShoppingButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-bg-light);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.continueShoppingButton:hover {
+  background-color: var(--color-border-light);
+  transform: translateY(-1px);
 }
