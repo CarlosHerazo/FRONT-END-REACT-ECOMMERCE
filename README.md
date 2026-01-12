@@ -1,7 +1,6 @@
 # E-commerce Frontend - Technical Test
 
 Aplicación frontend de e-commerce construida con React, TypeScript y Vite. Incluye funcionalidades lista de productos, carrito de compras, checkout con integración de pagos Wompi, y consulta de transacciones.
-![Demo de la aplicación](./PRUEBA.gif)
 **Aplicación en producción:** [https://front-end-react-ecommerce.vercel.app/](https://front-end-react-ecommerce.vercel.app/)
 <div align="center">
 
