@@ -63,7 +63,7 @@ const StateExamples: React.FC<StateExamplesProps> = ({
         No se Encontraron Productos
       </h2>
 
-      <div className={styles.examplesGrid}>
+      <div className={styles.examplesGrid} >
         <div className={styles.emptyState}>
           <div className={styles.emptyStateIcon}>
             <Icon name="search_off" />
