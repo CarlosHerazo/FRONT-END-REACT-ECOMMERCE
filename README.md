@@ -3,7 +3,21 @@
 Aplicación frontend de e-commerce construida con React, TypeScript y Vite. Incluye funcionalidades lista de productos, carrito de compras, checkout con integración de pagos Wompi, y consulta de transacciones.
 ![Demo de la aplicación](./PRUEBA.gif)
 **Aplicación en producción:** [https://front-end-react-ecommerce.vercel.app/](https://front-end-react-ecommerce.vercel.app/)
+<div align="center">
 
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?logo=vite&logoColor=white)
+![Redux](https://img.shields.io/badge/Redux_Toolkit-2.x-764ABC?logo=redux&logoColor=white)
+
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Vercel-black)](https://front-end-react-ecommerce.vercel.app/)
+[![Backend Repo](https://img.shields.io/badge/🔗_Backend-NestJS-green)](https://github.com/CarlosHerazo/BACKEND-NEST-TEST.git)
+
+*Aplicación frontend de e-commerce con catálogo, carrito, checkout y transacciones*
+
+![Demo GIF](./PRUEBA.gif)
+
+</div>
 ## Repositorio Backend
 
 Este proyecto se conecta con el backend desarrollado en NestJS:
