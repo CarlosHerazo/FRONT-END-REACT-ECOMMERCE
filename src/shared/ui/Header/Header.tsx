@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 
             <Link to="/" className={styles.logoSection}>
               <div className={styles.logoContent}>
-                <img className={styles.logoImg} src="/logoShop.png" alt="" />
+                <img className={styles.logoImg} src="/logoShop.webp" alt="" />
               </div>
               <h2 className={styles.logoText}>ShopHerazo</h2>
             </Link>
