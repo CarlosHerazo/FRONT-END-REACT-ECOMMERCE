@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
               <div className={styles.logoIcon}>
                 <Icon name="shopping_bag" />
               </div>
-              <h2 className={styles.brandName}>ShopModern</h2>
+              <h2 className={styles.brandName}>ShopHerazo</h2>
             </div>
             <p className={styles.brandDescription}>
               High-quality minimalist goods for the modern professional.
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
 
         <div className={styles.footerBottom}>
           <p className={styles.copyright}>
-            © 2024 ShopModern Inc. All rights reserved.
+            © 2024 ShopHerazo Inc. All rights reserved.
           </p>
           <div className={styles.socialLinks}>
             <a href="#" aria-label="Website">

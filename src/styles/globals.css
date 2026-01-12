@@ -96,6 +96,12 @@ body.dark {
   padding: 0 var(--space-6);
 }
 
+@media (max-width: 639px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+}
+
 /* Scrollbar personalizado */
 ::-webkit-scrollbar {
   width: 8px;

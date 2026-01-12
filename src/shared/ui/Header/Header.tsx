@@ -9,12 +9,12 @@ const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.headerContainer}`}>
-        <div className={styles.logoSection}>
+        <Link to="/" className={styles.logoSection}>
           <div className={styles.logoIcon}>
             <Icon name="shopping_bag" />
           </div>
-          <h2 className={styles.logoText}>ShopModern</h2>
-        </div>
+          <h2 className={styles.logoText}>ShopHerazo</h2>
+        </Link>
 
         <nav className={styles.nav}>
           <Link className={`${styles.navLink} ${styles.active}`} to="/products">

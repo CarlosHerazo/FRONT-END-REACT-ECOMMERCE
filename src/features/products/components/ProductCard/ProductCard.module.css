@@ -201,3 +201,54 @@
 .addToCartButton {
   cursor: pointer;
 }
+
+/* Responsive adjustments for mobile */
+@media (max-width: 639px) {
+  .productInfo {
+    padding: 0.75rem;
+  }
+
+  .category {
+    font-size: 0.625rem;
+  }
+
+  .rating span {
+    font-size: 0.625rem;
+  }
+
+  .ratingValue {
+    font-size: 0.625rem;
+  }
+
+  .productName {
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .price {
+    font-size: 1rem;
+  }
+
+  .addToCartButton {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .addToCartButton span {
+    font-size: 1.125rem;
+  }
+
+  .bestSellerBadge {
+    font-size: 0.5rem;
+    padding: 0.125rem 0.375rem;
+  }
+
+  .favoriteButton {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .favoriteButton span {
+    font-size: 1rem;
+  }
+}
