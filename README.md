@@ -1,6 +1,8 @@
 # E-commerce Frontend - Technical Test
 
-Aplicación frontend de e-commerce construida con React, TypeScript y Vite. Incluye funcionalidades de catálogo de productos, carrito de compras, checkout con integración de pagos Wompi, y consulta de transacciones.
+Aplicación frontend de e-commerce construida con React, TypeScript y Vite. Incluye funcionalidades lista de productos, carrito de compras, checkout con integración de pagos Wompi, y consulta de transacciones.
+
+**Aplicación en producción:** [https://front-end-react-ecommerce.vercel.app/](https://front-end-react-ecommerce.vercel.app/)
 
 ## Repositorio Backend
 
@@ -30,13 +32,55 @@ Este proyecto se conecta con el backend desarrollado en NestJS:
 
 ### Funcionalidades
 
-- Navegación entre productos y categorías
-- Gestión de carrito (agregar, eliminar, actualizar cantidades)
-- Proceso de checkout con validación de datos
+#### Navegación y UI
+- Navegación entre productos y categorías con chips de filtrado
+- Sistema de breadcrumbs para navegación contextual
+- Header responsive con logo optimizado en WebP
+- Sidebar lateral para navegación rápida
+- Footer informativo
+- Diseño responsive con CSS modules
+- Sistema de iconos personalizados
+
+#### Gestión de Productos
+- Catálogo de productos con grid responsive
+- ProductCard con información de producto y precio
+- Detalle de producto con descripción completa
+- Filtrado por categorías
+- Imágenes de productos con fallback
+
+#### Carrito de Compras
+- Agregar, eliminar y actualizar cantidades de productos
+- Persistencia del carrito en Redux
+- Resumen de orden con totales y subtotales
+- Indicadores de métodos de pago aceptados
+- Señales de confianza (envío gratis, garantía, soporte)
+- Items del carrito con controles de cantidad
+
+#### Proceso de Checkout
+- Formulario de datos del cliente con validación
+- Formulario de tarjeta de crédito con validación en tiempo real
+- Preview visual de tarjeta de crédito (react-credit-cards-2)
+- Resumen de orden en el checkout
 - Integración con pasarela de pagos Wompi
-- Consulta de historial de transacciones
-- Sistema de notificaciones toast
-- Diseño responsive
+- Validación de clave pública de Wompi
+
+#### Transacciones
+- Búsqueda de transacciones por email
+- Modal de entrada de email
+- Visualización de tarjetas de transacción
+- Historial completo de pagos
+
+#### Sistema de Notificaciones
+- Toast notifications contextuales
+- ToastContainer con gestión de múltiples notificaciones
+- Toast context para manejo global
+
+#### Optimizaciones
+- Imágenes en formato WebP para mejor rendimiento
+- Componentes modulares y reutilizables
+- TypeScript para type safety
+- Lazy loading de componentes
+- Optimización de assets
 
 ## Instalación
 
@@ -95,21 +139,51 @@ npm run lint     # Ejecuta el linter
 
 ```
 src/
-├── features/          # Funcionalidades por módulo
-│   ├── cart/         # Carrito de compras
-│   ├── checkout/     # Proceso de pago
-│   ├── products/     # Catálogo de productos
-│   └── transactions/ # Historial de transacciones
-├── pages/            # Páginas de la aplicación
-│   ├── Home/
-│   ├── Cart/
-│   ├── Checkout/
-│   ├── ProductDetail/
-│   └── Transactions/
-├── shared/           # Componentes y utilidades compartidas
-│   ├── ui/          # Componentes UI reutilizables
-│   └── services/    # Servicios y APIs
-└── store/           # Configuración de Redux
+├── features/                # Funcionalidades por módulo
+│   ├── cart/               # Carrito de compras
+│   │   ├── components/
+│   │   │   ├── CartItem/          # Item individual del carrito
+│   │   │   ├── OrderSummary/      # Resumen de la orden
+│   │   │   ├── PaymentMethods/    # Métodos de pago
+│   │   │   └── TrustSignals/      # Señales de confianza
+│   ├── checkout/           # Proceso de pago
+│   │   ├── components/
+│   │   │   ├── CreditCardForm/    # Formulario de tarjeta
+│   │   │   ├── CustomerDataForm/  # Datos del cliente
+│   │   │   └── OrderSummary/      # Resumen en checkout
+│   ├── products/           # Catálogo de productos
+│   │   ├── components/
+│   │   │   ├── CategoryChips/     # Filtros de categoría
+│   │   │   ├── DetailProduct/     # Detalle del producto
+│   │   │   ├── ProductCard/       # Tarjeta de producto
+│   │   │   └── ProductsGrid/      # Grid de productos
+│   └── transactions/       # Historial de transacciones
+│       └── components/
+│           └── TransactionCard/   # Tarjeta de transacción
+├── pages/                  # Páginas de la aplicación
+│   ├── Home/              # Página principal
+│   ├── Cart/              # Página del carrito
+│   ├── Checkout/          # Página de checkout
+│   ├── ProductDetail/     # Detalle de producto
+│   └── Transactions/      # Historial de transacciones
+├── shared/                 # Componentes y utilidades compartidas
+│   ├── ui/                # Componentes UI reutilizables
+│   │   ├── Breadcrumbs/   # Navegación breadcrumbs
+│   │   ├── EmailModal/    # Modal de email
+│   │   ├── Footer/        # Footer del sitio
+│   │   ├── Header/        # Header del sitio
+│   │   ├── Icon/          # Sistema de iconos
+│   │   ├── Layout/        # Layout principal
+│   │   ├── Sidebar/       # Sidebar de navegación
+│   │   ├── StateExamples/ # Ejemplos de estados
+│   │   └── Toast/         # Sistema de notificaciones
+│   └── services/          # Servicios y APIs
+│       ├── api.ts         # Cliente Axios
+│       ├── products.ts    # Servicio de productos
+│       ├── transactions.ts # Servicio de transacciones
+│       └── wompi.ts       # Integración Wompi
+└── store/                  # Configuración de Redux
+    └── cartSlice.ts       # Slice del carrito
 ```
 
 ## Integración con Backend
@@ -125,12 +199,70 @@ La aplicación se conecta con el backend mediante las siguientes endpoints princ
 
 La aplicación utiliza **Wompi** como pasarela de pagos en modo de prueba (staging). Para realizar pagos de prueba, se pueden usar tarjetas de crédito de prueba proporcionadas por Wompi.
 
+## Componentes Principales
+
+### Componentes UI Compartidos
+
+- **Layout** - Estructura principal con Header, Sidebar y Footer
+- **Header** - Navegación superior con logo y enlaces
+- **Sidebar** - Menú lateral de navegación
+- **Footer** - Pie de página con información
+- **Breadcrumbs** - Migas de pan para navegación contextual
+- **Toast** - Sistema de notificaciones con contexto global
+- **Icon** - Sistema de iconos SVG personalizados
+- **EmailModal** - Modal para captura de email
+
+### Componentes de Features
+
+#### Products
+- **ProductCard** - Tarjeta de producto con imagen, título y precio
+- **ProductsGrid** - Grid responsive de productos
+- **DetailProduct** - Vista detallada de producto
+- **CategoryChips** - Chips de filtrado por categoría
+
+#### Cart
+- **CartItem** - Item individual con controles de cantidad
+- **CartSummary** - Resumen con totales y botón de checkout
+- **PaymentMethods** - Indicadores de métodos de pago
+- **TrustSignals** - Señales de confianza (envío, garantía)
+
+#### Checkout
+- **CustomerDataForm** - Formulario de datos personales
+- **CreditCardForm** - Formulario de tarjeta con preview visual
+- **OrderSummary** - Resumen de la orden en checkout
+
+#### Transactions
+- **TransactionCard** - Tarjeta de transacción individual
+
+## Servicios
+
+### API Services
+
+- **api.ts** - Cliente Axios configurado con base URL y manejo de errores
+- **products.ts** - Servicios para obtener productos y detalles
+- **transactions.ts** - Servicios para crear y consultar transacciones
+- **wompi.ts** - Integración con Wompi para procesamiento de pagos
+
+### Redux Store
+
+- **cartSlice.ts** - Estado global del carrito con acciones para:
+  - Agregar productos
+  - Eliminar productos
+  - Actualizar cantidades
+  - Limpiar carrito
+  - Calcular totales
+
 ## Notas de Desarrollo
 
 - El proyecto usa `rolldown-vite` como bundler optimizado
 - Redux Toolkit para manejo de estado centralizado
 - Arquitectura modular por features
 - TypeScript para type safety
+- CSS Modules para estilos aislados
+- Componentes funcionales con hooks
+- Validación de formularios en tiempo real
+- Manejo de errores con try-catch y toast notifications
+- Responsive design mobile-first
 
 ## Autor
 

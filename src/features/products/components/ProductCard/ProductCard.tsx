@@ -24,6 +24,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     onToggleFavorite?.(product.id);
   };
 
+  console.log("STOTCK PRODUCTO:", product.stock);
+
   return (
     <Link 
       to={`/products/${product.id}`} 
@@ -71,6 +73,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               onClick={handleAddToCart}
               type="button"
               aria-label="Agregar al carrito"
+              disabled={product.stock === 0}
             >
               <Icon name="add_shopping_cart" />
             </button>
