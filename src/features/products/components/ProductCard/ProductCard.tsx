@@ -10,66 +10,67 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onAddToCart,
   onToggleFavorite,
 }) => {
+
+  // Función para agregar al carrito sin navegar a la página de detalles
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault(); // Previene la navegación del Link
-    e.stopPropagation(); // Previene la propagación del evento
+    e.preventDefault(); // Evita que el Link nos lleve a /products/:id
+    e.stopPropagation(); // Evita que el click "suba" al contenedor padre
     onAddToCart?.(product.id);
   };
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault(); // Previene la navegación del Link
-    e.stopPropagation(); // Previene la propagación al contenedor
+    e.preventDefault();
+    e.stopPropagation();
     onToggleFavorite?.(product.id);
   };
 
-  // Formatear precio
-
-
   return (
-    // Usando Link para navegación
     <Link 
       to={`/products/${product.id}`} 
       className={styles.productCardLink}
     >
       <div className={styles.productCard}>
+        {/* Contenedor de Imagen (Optimizado para LCP) */}
         <div className={styles.imageContainer}>
-          <div
+          <img
+            src={product.imgUrl}
+            alt={product.name}
             className={styles.productImage}
-            style={{ backgroundImage: `url(${product.imgUrl})` }}
-            role="img"
-            aria-label={product.name}
+            fetchPriority="high" 
+            loading="eager" 
           />
-
           <button
             className={styles.favoriteButton}
             onClick={handleToggleFavorite}
-            aria-label="Add to favorites"
             type="button"
+            aria-label="Agregar a favoritos"
           >
             <Icon name="favorite" />
           </button>
         </div>
 
+        {/* Información del Producto */}
         <div className={styles.productInfo}>
           <div className={styles.categoryRating}>
-            <span className={styles.category}>{product.category || 'Uncategorized'}</span>
+            <span className={styles.category}>{product.category || 'General'}</span>
             <div className={styles.rating}>
               <Icon name="star" />
-              <span className={styles.ratingValue}>
-                {product.rating?.toFixed(1) || 'N/A'}
-              </span>
+              <span>{product.rating?.toFixed(1) || '0.0'}</span>
             </div>
           </div>
 
           <h3 className={styles.productName}>{product.name}</h3>
 
           <div className={styles.priceCart}>
+            {/* Formateamos el precio usando tu utilidad */}
             <span className={styles.price}>${formatPrice(product.price)}</span>
+            
+            {/* BOTÓN AGREGAR AL CARRITO */}
             <button
               className={styles.addToCartButton}
               onClick={handleAddToCart}
-              aria-label="Add to cart"
               type="button"
+              aria-label="Agregar al carrito"
             >
               <Icon name="add_shopping_cart" />
             </button>
@@ -77,9 +78,5 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
     </Link>
-    
-   
   );
 };
-
-export default ProductCard;
