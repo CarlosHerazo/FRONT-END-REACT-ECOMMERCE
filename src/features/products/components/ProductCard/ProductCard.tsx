@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'; // Importa Link
 import { type ProductCardProps } from './ProductCard.types';
 import styles from './ProductCard.module.css';
 import Icon from '../../../../shared/ui/Icon';
-// import { formatPrice } from '../../../../utils/utils';
+import { formatPrice } from '../../../../utils/utils';
 
 export const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
@@ -65,7 +65,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
           <div className={styles.priceCart}>
             {/* Formateamos el precio usando tu utilidad */}
-            
+            <span className={styles.price}>${formatPrice(product.price)}</span>
             
             {/* BOTÓN AGREGAR AL CARRITO */}
             <button

@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCard from '../ProductCard/ProductCard';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
 import type { Product } from '../../types';
 import styles from './ProductsGrid.module.css';
 
