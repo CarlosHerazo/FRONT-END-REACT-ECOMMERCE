@@ -65,7 +65,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
           <div className={styles.priceCart}>
             {/* Formateamos el precio usando tu utilidad */}
-            <span className={styles.price}>${formatPrice(product.price)}</span>
+            
             
             {/* BOTÓN AGREGAR AL CARRITO */}
             <button
