@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '../../../../store/hooks';
 import { addItem } from '../../../cart/store/cartSlice';
 import Icon from '../../../../shared/ui/Icon';
@@ -7,16 +7,43 @@ import type { ProductDetailProps, StorageOption, ReviewSummary } from './Product
 import styles from './ProductDetail.module.css';
 import { formatPrice } from '../../../../utils/utils';
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ 
-  product, 
-  onAddToCart, 
+const ProductDetail: React.FC<ProductDetailProps> = ({
+  product,
+  onAddToCart,
   onBuyNow,
-  onQuantityChange 
+  onQuantityChange
 }) => {
   const [selectedStorage, setSelectedStorage] = useState<string>('128GB');
   const [quantity, setQuantity] = useState<number>(1);
   const [activeTab, setActiveTab] = useState<string>('description');
+  const [selectedImage, setSelectedImage] = useState<string>(product.imgUrl);
   const dispatch = useAppDispatch();
+
+  // Combinar imgUrl principal con images adicionales
+  const allImages = React.useMemo(() => {
+    // Filtrar imágenes válidas (no vacías ni undefined)
+    const additionalImages = product.images?.filter(img => img && img.trim() !== '') || [];
+
+    // Si hay imágenes adicionales, combinar con la principal
+    if (additionalImages.length > 0) {
+      return [product.imgUrl, ...additionalImages];
+    }
+
+    // Si no hay imágenes adicionales, solo la principal
+    return [product.imgUrl];
+  }, [product.imgUrl, product.images]);
+
+  // Debug: Verificar las imágenes del producto
+  useEffect(() => {
+    console.log('Product data:', product);
+    console.log('Product.images:', product.images);
+    console.log('All images computed:', allImages);
+  }, [product, allImages]);
+
+  // Actualizar imagen seleccionada cuando cambie el producto
+  useEffect(() => {
+    setSelectedImage(product.imgUrl);
+  }, [product.imgUrl]);
   // Mock de opciones
   const storageOptions: StorageOption[] = [
     { capacity: 'option 1', price: 0 },
@@ -114,35 +141,27 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
         {/* Columna Izquierda: Galería */}
         <div className={styles.galleryColumn}>
           <div className={styles.mainImage}>
-            <div 
+            <div
               className={styles.imageContainer}
-              style={{ backgroundImage: `url(${product.imgUrl})` }}
+              style={{ backgroundImage: `url(${selectedImage})` }}
               role="img"
               aria-label={product.name}
             />
           </div>
-          
-          <div className={styles.thumbnails}>
-            {/* Thumbnail principal */}
-            <button className={`${styles.thumbnail} ${styles.thumbnailActive}`}>
-              <div 
-                className={styles.thumbnailImage}
-                style={{ backgroundImage: `url(${product.imgUrl})` }}
-              />
-            </button>
-            
-            {/* Thumbnails adicionales (mock) */}
-            <button className={styles.thumbnail}>
-              <div className={`${styles.thumbnailImage} ${styles.thumbnailPlaceholder}`}>
-                <Icon name="photo" />
-              </div>
-            </button>
 
-            <button className={styles.thumbnail}>
-              <div className={`${styles.thumbnailImage} ${styles.thumbnailPlaceholder}`}>
-                <Icon name="photo" />
-              </div>
-            </button>
+          <div className={styles.thumbnails}>
+            {allImages.map((image, index) => (
+              <button
+                key={index}
+                className={`${styles.thumbnail} ${selectedImage === image ? styles.thumbnailActive : ''}`}
+                onClick={() => setSelectedImage(image)}
+              >
+                <div
+                  className={styles.thumbnailImage}
+                  style={{ backgroundImage: `url(${image})` }}
+                />
+              </button>
+            ))}
           </div>
         </div>
 
