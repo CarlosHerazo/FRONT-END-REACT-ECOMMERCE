@@ -22,7 +22,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
 
   return (
     <div className={styles.orderSummary}>
-      <h3 className={styles.summaryTitle}>Order Summary</h3>
+      <h3 className={styles.summaryTitle}>Resumen del Pedido</h3>
 
       <div className={styles.itemsList}>
         {items.map((item) => (
@@ -51,14 +51,14 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
         </div>
 
         <div className={styles.summaryRow}>
-          <span className={styles.rowLabel}>Shipping</span>
+          <span className={styles.rowLabel}>Envío</span>
           <span className={`${styles.rowValue} ${shipping === 0 ? styles.freeShipping : ''}`}>
-            {shipping === 0 ? 'FREE' : formatPrice(shipping)}
+            {shipping === 0 ? 'GRATIS' : formatPrice(shipping)}
           </span>
         </div>
 
         <div className={styles.summaryRow}>
-          <span className={styles.rowLabel}>Tax</span>
+          <span className={styles.rowLabel}>Impuesto</span>
           <span className={styles.rowValue}>{formatPrice(tax)}</span>
         </div>
 
@@ -75,7 +75,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
 
       <div className={styles.securePayment}>
         <Icon name="lock" />
-        <span>Secure Payment</span>
+        <span>Pago Seguro</span>
       </div>
     </div>
   );

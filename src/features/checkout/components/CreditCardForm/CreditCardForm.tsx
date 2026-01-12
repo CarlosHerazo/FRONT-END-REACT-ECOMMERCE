@@ -58,16 +58,16 @@ export const CreditCardForm: React.FC<CreditCardFormProps> = ({
     const newErrors: Partial<Record<keyof CreditCardData, string>> = {};
 
     if (!validateCardNumber(data.number)) {
-      newErrors.number = 'Invalid card number';
+      newErrors.number = 'Número de tarjeta inválido';
     }
     if (!validateName(data.name)) {
-      newErrors.name = 'Cardholder name required';
+      newErrors.name = 'Nombre del titular requerido';
     }
     if (!validateExpiry(data.expiry)) {
-      newErrors.expiry = 'Invalid expiry date';
+      newErrors.expiry = 'Fecha de vencimiento inválida';
     }
     if (!validateCVC(data.cvc)) {
-      newErrors.cvc = 'Invalid CVC';
+      newErrors.cvc = 'CVC inválido';
     }
 
     setErrors(newErrors);
@@ -129,7 +129,7 @@ export const CreditCardForm: React.FC<CreditCardFormProps> = ({
       <div className={styles.formFields}>
         <div className={styles.formGroup}>
           <label htmlFor="cardNumber" className={styles.formLabel}>
-            Card Number <span className={styles.required}>*</span>
+            Número de Tarjeta <span className={styles.required}>*</span>
           </label>
           <div className={styles.inputWrapper}>
             <Icon name="credit_card" className={styles.inputIcon} />
@@ -154,7 +154,7 @@ export const CreditCardForm: React.FC<CreditCardFormProps> = ({
 
         <div className={styles.formGroup}>
           <label htmlFor="cardName" className={styles.formLabel}>
-            Cardholder Name <span className={styles.required}>*</span>
+            Nombre del Titular <span className={styles.required}>*</span>
           </label>
           <div className={styles.inputWrapper}>
             <Icon name="person" className={styles.inputIcon} />
@@ -180,7 +180,7 @@ export const CreditCardForm: React.FC<CreditCardFormProps> = ({
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="cardExpiry" className={styles.formLabel}>
-              Expiry Date <span className={styles.required}>*</span>
+              Fecha de Vencimiento <span className={styles.required}>*</span>
             </label>
             <div className={styles.inputWrapper}>
               <Icon name="calendar_today" className={styles.inputIcon} />
@@ -231,7 +231,7 @@ export const CreditCardForm: React.FC<CreditCardFormProps> = ({
 
         <div className={styles.securityNote}>
           <Icon name="shield" />
-          <span>Your payment information is encrypted and secure</span>
+          <span>Tu información de pago está encriptada y segura</span>
         </div>
       </div>
     </div>

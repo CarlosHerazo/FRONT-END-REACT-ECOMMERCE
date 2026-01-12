@@ -43,13 +43,13 @@ export function CheckoutPage() {
             <div className={styles.successIcon}>
               <Icon name="check_circle" />
             </div>
-            <h1 className={styles.successTitle}>Payment Successful!</h1>
+            <h1 className={styles.successTitle}>¡Pago Exitoso!</h1>
             <p className={styles.successMessage}>
-              Thank you for your purchase. Your order has been confirmed and is being processed.
+              Gracias por tu compra. Tu pedido ha sido confirmado y está siendo procesado.
             </p>
             <div className={styles.successDetails}>
               <Icon name="local_shipping" />
-              <span>You will receive a confirmation email shortly.</span>
+              <span>Recibirás un correo de confirmación en breve.</span>
             </div>
           </div>
         </div>
@@ -65,9 +65,9 @@ export function CheckoutPage() {
         <div className={styles.pageHeader}>
           <button className={styles.backButton} onClick={goBackToCart}>
             <Icon name="arrow_back" />
-            Back to Cart
+            Volver al Carrito
           </button>
-          <h1 className={styles.pageTitle}>Checkout</h1>
+          <h1 className={styles.pageTitle}>Finalizar Compra</h1>
         </div>
 
         {/* Main Content Grid */}
@@ -78,7 +78,7 @@ export function CheckoutPage() {
             <div className={styles.formCard}>
               <div className={styles.formCardHeader}>
                 <div className={styles.stepNumber}>1</div>
-                <h2 className={styles.formCardTitle}>Shipping Information</h2>
+                <h2 className={styles.formCardTitle}>Información de Envío</h2>
               </div>
               <CustomerDataForm
                 initialData={customerData}
@@ -91,7 +91,7 @@ export function CheckoutPage() {
             <div className={styles.formCard}>
               <div className={styles.formCardHeader}>
                 <div className={styles.stepNumber}>2</div>
-                <h2 className={styles.formCardTitle}>Payment Information</h2>
+                <h2 className={styles.formCardTitle}>Información de Pago</h2>
               </div>
               <CreditCardForm
                 onCardDataChange={setCardData}
@@ -102,16 +102,16 @@ export function CheckoutPage() {
               <div className={styles.testCardsInfo}>
                 <div className={styles.testCardsHeader}>
                   <Icon name="info" />
-                  <span>Test Cards (Sandbox)</span>
+                  <span>Tarjetas de Prueba (Sandbox)</span>
                 </div>
                 <div className={styles.testCardsList}>
                   <div className={styles.testCard}>
                       <span className={styles.testCardNumber}>4242 4242 4242 4242</span>
-                      <span className={styles.testCardStatus}><Icon name="check_circle" /> Approved</span>
+                      <span className={styles.testCardStatus}><Icon name="check_circle" /> Aprobada</span>
                   </div>
                   <div className={styles.testCard}>
                       <span className={styles.testCardNumber}>4111 1111 1111 1111</span>
-                      <span className={styles.testCardStatus}><Icon name="cancel" /> Declined</span>
+                      <span className={styles.testCardStatus}><Icon name="cancel" /> Rechazada</span>
                   </div>
                 </div>
               </div>
@@ -142,12 +142,12 @@ export function CheckoutPage() {
               {isProcessing ? (
                 <>
                   <span className={styles.spinner}></span>
-                  {processingStep || 'Processing Payment...'}
+                  {processingStep || 'Procesando Pago...'}
                 </>
               ) : (
                 <>
                   <Icon name="payment" />
-                  Place Order - ${summary.total.toFixed(2)}
+                  Realizar Pedido - ${summary.total.toFixed(2)}
                 </>
               )}
             </button>

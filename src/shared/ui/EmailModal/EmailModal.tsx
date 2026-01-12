@@ -77,13 +77,13 @@ const EmailModal: React.FC<EmailModalProps> = ({
         {/* Modal Header */}
         <div className={styles.emailModalHeader}>
           <h2 id="email-modal-title" className={styles.emailModalTitle}>
-            {showResult ? 'Customer Found' : 'Find Your Account'}
+            {showResult ? 'Cliente Encontrado' : 'Buscar tu Cuenta'}
           </h2>
           
           <button 
             className={styles.emailModalCloseBtn}
             onClick={onClose}
-            aria-label="Close modal"
+            aria-label="Cerrar modal"
           >
             <Icon name="close" />
           </button>
@@ -97,15 +97,15 @@ const EmailModal: React.FC<EmailModalProps> = ({
                 <div className={styles.formIcon}>
                   <Icon name="mail" />
                 </div>
-                <h3 className={styles.formTitle}>Enter Your Email Address</h3>
+                <h3 className={styles.formTitle}>Ingresa tu Correo Electrónico</h3>
                 <p className={styles.formDescription}>
-                  We'll check if you're an existing customer to personalize your experience.
+                  Verificaremos si eres un cliente existente para personalizar tu experiencia.
                 </p>
               </div>
 
               <div className={styles.emailInputGroup}>
                 <label htmlFor="customer-email" className={styles.inputLabel}>
-                  Email Address
+                  Correo Electrónico
                 </label>
                 <div className={styles.inputWrapper}>
                   <Icon name="mail" className={styles.inputIcon} />
@@ -134,7 +134,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
 
               <div className={styles.privacyNote}>
                 <Icon name="lock" />
-                <span>Your email is safe with us. We don't spam.</span>
+                <span>Tu correo está seguro con nosotros. No enviamos spam.</span>
               </div>
             </form>
           ) : (
@@ -144,42 +144,42 @@ const EmailModal: React.FC<EmailModalProps> = ({
                   <div className={`${styles.resultIcon} ${styles.success}`}>
                     <Icon name="verified_user" />
                   </div>
-                  <h3 className={styles.resultTitle}>Welcome Back!</h3>
+                  <h3 className={styles.resultTitle}>¡Bienvenido de Nuevo!</h3>
                   <p className={styles.resultSubtitle}>
-                    We found your account in our system.
+                    Encontramos tu cuenta en nuestro sistema.
                   </p>
                   
                   <div className={styles.customerDetails}>
                     <div className={styles.detailRow}>
-                      <span className={styles.detailLabel}>Name:</span>
+                      <span className={styles.detailLabel}>Nombre:</span>
                       <span className={styles.detailValue}>{searchResult.name}</span>
                     </div>
                     <div className={styles.detailRow}>
-                      <span className={styles.detailLabel}>Email:</span>
+                      <span className={styles.detailLabel}>Correo:</span>
                       <span className={`${styles.detailValue} ${styles.emailValue}`}>{searchResult.email}</span>
                     </div>
                     <div className={styles.detailRow}>
-                      <span className={styles.detailLabel}>Member Since:</span>
+                      <span className={styles.detailLabel}>Miembro Desde:</span>
                       <span className={styles.detailValue}>{searchResult.joinDate}</span>
                     </div>
                     <div className={styles.membershipBadge}>
                       <Icon name="workspace_premium" className={styles.badgeIcon} />
-                      <span className={styles.badgeText}>{searchResult.membershipLevel?.toUpperCase()} Member</span>
+                      <span className={styles.badgeText}>Miembro {searchResult.membershipLevel?.toUpperCase()}</span>
                     </div>
                   </div>
                   
                   <div className={styles.benefitsList}>
                     <div className={styles.benefitItem}>
                       <Icon name="check_circle" />
-                      <span>Exclusive member pricing</span>
+                      <span>Precios exclusivos para miembros</span>
                     </div>
                     <div className={styles.benefitItem}>
                       <Icon name="check_circle" />
-                      <span>Free shipping</span>
+                      <span>Envío gratis</span>
                     </div>
                     <div className={styles.benefitItem}>
                       <Icon name="check_circle" />
-                      <span>Priority support</span>
+                      <span>Soporte prioritario</span>
                     </div>
                   </div>
                 </div>
@@ -191,22 +191,22 @@ const EmailModal: React.FC<EmailModalProps> = ({
                       <div className={`${styles.resultIcon} ${styles.success}`}>
                         <Icon name="check_circle" />
                       </div>
-                      <h3 className={styles.resultTitle}>Registration Successful!</h3>
+                      <h3 className={styles.resultTitle}>¡Registro Exitoso!</h3>
                       <p className={styles.resultSubtitle}>
-                        Your account has been created successfully.
+                        Tu cuenta ha sido creada exitosamente.
                       </p>
 
                       <div className={styles.customerDetails}>
                         <div className={styles.detailRow}>
-                          <span className={styles.detailLabel}>Name:</span>
+                          <span className={styles.detailLabel}>Nombre:</span>
                           <span className={styles.detailValue}>{newCustomerData.fullName}</span>
                         </div>
                         <div className={styles.detailRow}>
-                          <span className={styles.detailLabel}>Email:</span>
+                          <span className={styles.detailLabel}>Correo:</span>
                           <span className={`${styles.detailValue} ${styles.emailValue}`}>{searchResult?.email}</span>
                         </div>
                         <div className={styles.detailRow}>
-                          <span className={styles.detailLabel}>Phone:</span>
+                          <span className={styles.detailLabel}>Teléfono:</span>
                           <span className={styles.detailValue}>{newCustomerData.phone}</span>
                         </div>
                       </div>
@@ -217,9 +217,9 @@ const EmailModal: React.FC<EmailModalProps> = ({
                       <div className={`${styles.resultIcon} ${styles.error}`}>
                         <Icon name="error" />
                       </div>
-                      <h3 className={styles.resultTitle}>Registration Failed</h3>
+                      <h3 className={styles.resultTitle}>Registro Fallido</h3>
                       <p className={styles.resultSubtitle}>
-                        {creationError || 'There was an error creating your account. Please try again.'}
+                        {creationError || 'Hubo un error al crear tu cuenta. Por favor, intenta de nuevo.'}
                       </p>
                     </>
                   ) : (
@@ -228,9 +228,9 @@ const EmailModal: React.FC<EmailModalProps> = ({
                       <div className={`${styles.resultIcon} ${styles.info}`}>
                         <Icon name="person_add" />
                       </div>
-                      <h3 className={styles.resultTitle}>New Customer</h3>
+                      <h3 className={styles.resultTitle}>Cliente Nuevo</h3>
                       <p className={styles.resultSubtitle}>
-                        Please complete your information to continue.
+                        Por favor completa tu información para continuar.
                       </p>
 
                       <form className={styles.newCustomerForm}>
@@ -242,7 +242,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
                     {/* Nombre Completo */}
                     <div className={styles.formGroup}>
                       <label htmlFor="fullName" className={styles.formLabel}>
-                        Full Name <span className={styles.required}>*</span>
+                        Nombre Completo <span className={styles.required}>*</span>
                       </label>
                       <div className={styles.inputWrapper}>
                         <Icon name="person" className={styles.inputIcon} />
@@ -266,7 +266,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
                     {/* Teléfono */}
                     <div className={styles.formGroup}>
                       <label htmlFor="phone" className={styles.formLabel}>
-                        Phone <span className={styles.required}>*</span>
+                        Teléfono <span className={styles.required}>*</span>
                       </label>
                       <div className={styles.inputWrapper}>
                         <Icon name="phone" className={styles.inputIcon} />
@@ -290,7 +290,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
                     {/* Dirección */}
                     <div className={styles.formGroup}>
                       <label htmlFor="address" className={styles.formLabel}>
-                        Address <span className={styles.required}>*</span>
+                        Dirección <span className={styles.required}>*</span>
                       </label>
                       <div className={styles.inputWrapper}>
                         <Icon name="home" className={styles.inputIcon} />
@@ -315,7 +315,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
                     <div className={styles.formRow}>
                       <div className={styles.formGroup}>
                         <label htmlFor="city" className={styles.formLabel}>
-                          City <span className={styles.required}>*</span>
+                          Ciudad <span className={styles.required}>*</span>
                         </label>
                         <div className={styles.inputWrapper}>
                           <Icon name="location_city" className={styles.inputIcon} />
@@ -338,7 +338,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
 
                       <div className={styles.formGroup}>
                         <label htmlFor="country" className={styles.formLabel}>
-                          Country <span className={styles.required}>*</span>
+                          País <span className={styles.required}>*</span>
                         </label>
                         <div className={styles.inputWrapper}>
                           <Icon name="public" className={styles.inputIcon} />
@@ -366,7 +366,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
                     {/* Código Postal */}
                     <div className={styles.formGroup}>
                       <label htmlFor="postalCode" className={styles.formLabel}>
-                        Postal Code <span className={styles.required}>*</span>
+                        Código Postal <span className={styles.required}>*</span>
                       </label>
                       <div className={styles.inputWrapper}>
                         <Icon name="markunread_mailbox" className={styles.inputIcon} />
@@ -399,12 +399,12 @@ const EmailModal: React.FC<EmailModalProps> = ({
         <div className={styles.emailModalFooter}>
           {!showResult ? (
             <>
-              <button 
+              <button
                 className={styles.modalSecondaryBtn}
                 onClick={onClose}
                 type="button"
               >
-                Cancel
+                Cancelar
               </button>
               <button 
                 className={`${styles.modalPrimaryBtn} ${isLoading ? styles.loading : ''}`}
@@ -415,12 +415,12 @@ const EmailModal: React.FC<EmailModalProps> = ({
                 {isLoading ? (
                   <>
                     <span className={styles.spinner}></span>
-                    Searching...
+                    Buscando...
                   </>
                 ) : (
                   <>
                     <Icon name="search" />
-                    Search Account
+                    Buscar Cuenta
                   </>
                 )}
               </button>
@@ -435,7 +435,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
                   type="button"
                 >
                   <Icon name="shopping_cart" />
-                  Proceed to Checkout
+                  Proceder al Pago
                 </button>
               ) : creationStatus === 'error' ? (
                 // Botones cuando hay error
@@ -446,14 +446,14 @@ const EmailModal: React.FC<EmailModalProps> = ({
                     type="button"
                   >
                     <Icon name="arrow_back" />
-                    Try Again
+                    Intentar de Nuevo
                   </button>
                   <button
                     className={styles.modalSecondaryBtn}
                     onClick={onClose}
                     type="button"
                   >
-                    Cancel
+                    Cancelar
                   </button>
                 </>
               ) : (
@@ -465,7 +465,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
                     type="button"
                   >
                     <Icon name="edit" />
-                    Edit Email
+                    Editar Correo
                   </button>
                   <button
                     className={styles.modalPrimaryBtn}
@@ -476,17 +476,17 @@ const EmailModal: React.FC<EmailModalProps> = ({
                     {searchResult?.isExisting ? (
                       <>
                         <Icon name="login" />
-                        Continue as {searchResult.name?.split(' ')[0]}
+                        Continuar como {searchResult.name?.split(' ')[0]}
                       </>
                     ) : creationStatus === 'creating' ? (
                       <>
                         <span className={styles.spinner}></span>
-                        Creating Account...
+                        Creando Cuenta...
                       </>
                     ) : (
                       <>
                         <Icon name="check_circle" />
-                        Complete Registration
+                        Completar Registro
                       </>
                     )}
                   </button>

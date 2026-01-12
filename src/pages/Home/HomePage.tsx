@@ -7,23 +7,23 @@ import { addItem } from '../../features/cart/store/cartSlice';
 import styles from './HomePage.module.css';
 
 const categories = [
-  'All Items',
-  'Electronics',
-  'Accessories',
-  'Computing',
+  'Todos los artículos',
+  'Electrónicos',
+  'Accesorios',
+  'Computación',
 ];
 
 export const HomePage = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('All Items');
+  const [activeCategory, setActiveCategory] = useState<string>('Todos los artículos');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
   const { products, loading, error, filterByCategory, resetFilters } = useProducts();
   const { showSuccess } = useToast();
   const dispatch = useAppDispatch();
 
-  // Efecto para detectar si está filtrando (categoría diferente a "All Items")
+  // Efecto para detectar si está filtrando (categoría diferente a "Todos los artículos")
   useEffect(() => {
-    setIsFiltering(activeCategory !== 'All Items');
+    setIsFiltering(activeCategory !== 'Todos los artículos');
   }, [activeCategory]);
 
   const handleAddToCart = (productId: string) => {
@@ -37,7 +37,7 @@ export const HomePage = () => {
         imageUrl: product.imgUrl,
         description: product.description,
       }));
-      showSuccess(`${product.name} added to cart!`);
+      showSuccess(`¡${product.name} agregado al carrito!`);
     }
   };
 
@@ -49,8 +49,8 @@ export const HomePage = () => {
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
     setIsFiltering(true);
-    
-    if (category === 'All Items') {
+
+    if (category === 'Todos los artículos') {
       resetFilters();
       setIsFiltering(false);
     } else {
@@ -59,15 +59,15 @@ export const HomePage = () => {
   };
 
   const handleClearFilters = () => {
-    setActiveCategory('All Items');
+    setActiveCategory('Todos los artículos');
     setSearchQuery('');
     resetFilters();
     setIsFiltering(false);
   };
 
   const breadcrumbItems = [
-    { label: 'Home', href: '/Home' },
-    { label: 'Products', href: '/products' },
+    { label: 'Inicio', href: '/Home' },
+    { label: 'Productos', href: '/products' },
   ];
 
   // Determinar si mostrar StateExamples
@@ -80,16 +80,16 @@ export const HomePage = () => {
       <div className={styles.header}>
         <div className={styles.titleSection}>
           <h1 className={styles.title}>
-            {isFiltering && activeCategory !== 'All Items'
-              ? `${activeCategory} Products`
-              : 'Products available'}
+            {isFiltering && activeCategory !== 'Todos los artículos'
+              ? `Productos de ${activeCategory}`
+              : 'Productos disponibles'}
           </h1>
           <p className={styles.subtitle}>
             {loading
-              ? 'Loading products...'
+              ? 'Cargando productos...'
               : isFiltering && products.length === 0
-              ? 'No products found'
-              : `Discover our curated selection of ${products.length} items`}
+              ? 'No se encontraron productos'
+              : `Descubre nuestra selección curada de ${products.length} artículos`}
           </p>
         </div>
       </div>
@@ -105,7 +105,7 @@ export const HomePage = () => {
       {error && (
         <div className={styles.errorMessage}>
           <p className={styles.errorText}>
-            Error loading products: {error.message}
+            Error al cargar productos: {error.message}
           </p>
         </div>
       )}

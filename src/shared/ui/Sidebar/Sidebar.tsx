@@ -12,10 +12,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: 'Home', icon: 'home' },
-    { path: '/products', label: 'Products', icon: 'inventory_2' },
-    { path: '/transactions', label: 'Transactions', icon: 'receipt_long' },
-    { path: '/cart', label: 'Cart', icon: 'shopping_cart' },
+    { path: '/', label: 'Inicio', icon: 'home' },
+    { path: '/products', label: 'Productos', icon: 'inventory_2' },
+    { path: '/transactions', label: 'Transacciones', icon: 'receipt_long' },
+    { path: '/cart', label: 'Carrito', icon: 'shopping_cart' },
   ];
 
   return (
@@ -37,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <button
             className={styles.closeButton}
             onClick={onClose}
-            aria-label="Close menu"
+            aria-label="Cerrar menú"
           >
             <Icon name="close" />
           </button>

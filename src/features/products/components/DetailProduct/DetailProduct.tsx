@@ -131,9 +131,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     <div className={styles.productDetail}>
       {/* Breadcrumbs */}
       <nav className={styles.breadcrumbs}>
-        <a href="#" className={styles.breadcrumbLink}>Home</a>
-        <span className={styles.breadcrumbSeparator}>/Products</span>
-        <span className={styles.breadcrumbSeparator}>/Detail</span>
+        <a href="#" className={styles.breadcrumbLink}>Inicio</a>
+        <span className={styles.breadcrumbSeparator}>/Productos</span>
+        <span className={styles.breadcrumbSeparator}>/Detalle</span>
         <span className={styles.breadcrumbCurrent}>{product.name}</span>
       </nav>
 
@@ -179,7 +179,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
               {renderRatingStars(reviewSummary.averageRating)}
             </div>
             <span className={styles.ratingText}>
-              {reviewSummary.averageRating} ({reviewSummary.totalReviews} reviews)
+              {reviewSummary.averageRating} ({reviewSummary.totalReviews} reseñas)
             </span>
           </div>
 
@@ -194,9 +194,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
             <div className={styles.availability}>
               <span className={`${styles.statusDot} ${product.stock > 0 ? styles.inStock : styles.outOfStock}`}></span>
               <span className={styles.statusText}>
-                {product.stock > 0 
-                  ? `In Stock - ${product.stock} units available` 
-                  : 'Out of Stock'}
+                {product.stock > 0
+                  ? `En Stock - ${product.stock} unidades disponibles`
+                  : 'Agotado'}
               </span>
             </div>
           </div>
@@ -210,7 +210,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
           <div className={styles.optionsSection}>
             {/* Capacidad de almacenamiento */}
             <div className={styles.optionGroup}>
-              <span className={styles.optionLabel}>Storage Capacity</span>
+              <span className={styles.optionLabel}>Capacidad de Almacenamiento</span>
               <div className={styles.storageOptions}>
                 {storageOptions.map((option) => (
                   <button
@@ -231,7 +231,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
 
             {/* Cantidad */}
             <div className={styles.optionGroup}>
-              <span className={styles.optionLabel}>Quantity</span>
+              <span className={styles.optionLabel}>Cantidad</span>
               <div className={styles.quantitySelector}>
                 <button
                   className={styles.quantityButton}
@@ -260,7 +260,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
               disabled={product.stock === 0}
             >
               <Icon name="shopping_bag" />
-              Buy Now
+              Comprar Ahora
             </button>
             <button
               className={styles.addToCartButton}
@@ -268,7 +268,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
               disabled={product.stock === 0}
             >
               <Icon name="shopping_cart" />
-              Add to Cart
+              Agregar al Carrito
             </button>
           </div>
 
@@ -277,16 +277,16 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
             <div className={styles.serviceItem}>
               <Icon name="local_shipping" className={styles.serviceIcon} />
               <div>
-                <p className={styles.serviceTitle}>Free Shipping</p>
-                <p className={styles.serviceSubtitle}>On orders over $50</p>
+                <p className={styles.serviceTitle}>Envío Gratis</p>
+                <p className={styles.serviceSubtitle}>En pedidos mayores a $50</p>
               </div>
             </div>
 
             <div className={styles.serviceItem}>
               <Icon name="security" className={styles.serviceIcon} />
               <div>
-                <p className={styles.serviceTitle}>2 Year Warranty</p>
-                <p className={styles.serviceSubtitle}>Full manufacturer coverage</p>
+                <p className={styles.serviceTitle}>Garantía de 2 Años</p>
+                <p className={styles.serviceSubtitle}>Cobertura completa del fabricante</p>
               </div>
             </div>
           </div>
@@ -296,29 +296,29 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       {/* Tabs de información detallada */}
       <div className={styles.detailsTabs}>
         <div className={styles.tabHeaders}>
-          <button 
+          <button
             className={`${styles.tabHeader} ${activeTab === 'description' ? styles.tabActive : ''}`}
             onClick={() => setActiveTab('description')}
           >
-            Description
+            Descripción
           </button>
-          <button 
+          <button
             className={`${styles.tabHeader} ${activeTab === 'specifications' ? styles.tabActive : ''}`}
             onClick={() => setActiveTab('specifications')}
           >
-            Specifications
+            Especificaciones
           </button>
-          <button 
+          <button
             className={`${styles.tabHeader} ${activeTab === 'shipping' ? styles.tabActive : ''}`}
             onClick={() => setActiveTab('shipping')}
           >
-            Shipping & Returns
+            Envío y Devoluciones
           </button>
-          <button 
+          <button
             className={`${styles.tabHeader} ${activeTab === 'reviews' ? styles.tabActive : ''}`}
             onClick={() => setActiveTab('reviews')}
           >
-            Reviews ({reviewSummary.totalReviews})
+            Reseñas ({reviewSummary.totalReviews})
           </button>
         </div>
 
@@ -422,24 +422,24 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                 <div className={styles.shippingItem}>
                   <Icon name="local_shipping" className={styles.shippingIcon} />
                   <div>
-                    <h4 className={styles.shippingTitle}>Shipping Information</h4>
+                    <h4 className={styles.shippingTitle}>Información de Envío</h4>
                     <p className={styles.shippingText}>
-                      • Free standard shipping on orders over $50<br/>
-                      • Express shipping available for $9.99<br/>
-                      • Estimated delivery: 3-5 business days<br/>
-                      • International shipping available
+                      • Envío estándar gratis en pedidos mayores a $50<br/>
+                      • Envío express disponible por $9.99<br/>
+                      • Entrega estimada: 3-5 días hábiles<br/>
+                      • Envío internacional disponible
                     </p>
                   </div>
                 </div>
                 <div className={styles.shippingItem}>
                   <Icon name="assignment_return" className={styles.shippingIcon} />
                   <div>
-                    <h4 className={styles.shippingTitle}>Return Policy</h4>
+                    <h4 className={styles.shippingTitle}>Política de Devoluciones</h4>
                     <p className={styles.shippingText}>
-                      • 30-day return policy from delivery date<br/>
-                      • Products must be in original condition<br/>
-                      • Free returns for defective items<br/>
-                      • Refund processed within 5-7 business days
+                      • Política de devolución de 30 días desde la fecha de entrega<br/>
+                      • Los productos deben estar en condición original<br/>
+                      • Devoluciones gratis para artículos defectuosos<br/>
+                      • Reembolso procesado en 5-7 días hábiles
                     </p>
                   </div>
                 </div>
@@ -456,14 +456,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                     {renderRatingStars(reviewSummary.averageRating)}
                   </div>
                   <p className={styles.totalReviews}>
-                    Based on {reviewSummary.totalReviews} reviews
+                    Basado en {reviewSummary.totalReviews} reseñas
                   </p>
                 </div>
 
                 <div className={styles.ratingBars}>
                   {[5, 4, 3, 2, 1].map((stars) => (
                     <div key={stars} className={styles.ratingBarRow}>
-                      <span className={styles.starCount}>{stars} stars</span>
+                      <span className={styles.starCount}>{stars} estrellas</span>
                       <div className={styles.ratingBar}>
                         <div 
                           className={styles.ratingFill}

@@ -47,7 +47,7 @@ export function TransactionCard({ transaction }: TransactionCardProps) {
         <div className={styles.shippingInfo}>
           <div className={styles.sectionTitle}>
             <Icon name="local_shipping" />
-            Shipping Address
+            Dirección de Envío
           </div>
           <div className={styles.addressText}>
             {transaction.shippingAddress.addressLine1}<br />
@@ -58,12 +58,12 @@ export function TransactionCard({ transaction }: TransactionCardProps) {
 
         <div className={styles.paymentInfo}>
           <div className={styles.paymentRow}>
-            <span className={styles.label}>Payment Method:</span>
+            <span className={styles.label}>Método de Pago:</span>
             <span className={styles.value}>{transaction.paymentMethod.type}</span>
           </div>
           {transaction.paymentMethod.installments > 1 && (
             <div className={styles.paymentRow}>
-              <span className={styles.label}>Installments:</span>
+              <span className={styles.label}>Cuotas:</span>
               <span className={styles.value}>{transaction.paymentMethod.installments}x</span>
             </div>
           )}
@@ -72,14 +72,14 @@ export function TransactionCard({ transaction }: TransactionCardProps) {
         {transaction.metadata && (
           <div className={styles.metadata}>
             <div className={styles.metadataRow}>
-              <span className={styles.label}>Order ID:</span>
+              <span className={styles.label}>ID de Pedido:</span>
               <span className={styles.value}>{transaction.metadata.orderId}</span>
             </div>
             {transaction.metadata.productIds && transaction.metadata.productIds.length > 0 && (
               <div className={styles.metadataRow}>
-                <span className={styles.label}>Products:</span>
+                <span className={styles.label}>Productos:</span>
                 <span className={styles.value}>
-                  {transaction.metadata.productIds.length} item{transaction.metadata.productIds.length > 1 ? 's' : ''}
+                  {transaction.metadata.productIds.length} artículo{transaction.metadata.productIds.length > 1 ? 's' : ''}
                 </span>
               </div>
             )}
@@ -89,12 +89,12 @@ export function TransactionCard({ transaction }: TransactionCardProps) {
 
       <div className={styles.cardFooter}>
         <div className={styles.transactionIds}>
-          <span className={styles.idLabel}>Transaction ID:</span>
+          <span className={styles.idLabel}>ID de Transacción:</span>
           <span className={styles.idValue}>{transaction.id}</span>
         </div>
         {transaction.wompiTransactionId && (
           <div className={styles.transactionIds}>
-            <span className={styles.idLabel}>Wompi ID:</span>
+            <span className={styles.idLabel}>ID de Wompi:</span>
             <span className={styles.idValue}>{transaction.wompiTransactionId}</span>
           </div>
         )}

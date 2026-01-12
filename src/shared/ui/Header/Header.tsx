@@ -21,7 +21,7 @@ const Header: React.FC = () => {
             <button
               className={styles.menuButton}
               onClick={toggleSidebar}
-              aria-label="Open menu"
+              aria-label="Abrir menú"
             >
               <Icon name="menu" />
             </button>
@@ -36,10 +36,10 @@ const Header: React.FC = () => {
 
           <nav className={styles.nav}>
             <Link className={`${styles.navLink} ${styles.active}`} to="/products">
-              Products
+              Productos
             </Link>
             <Link className={styles.navLink} to="/transactions">
-              Transactions
+              Transacciones
             </Link>
           </nav>
 
@@ -48,12 +48,12 @@ const Header: React.FC = () => {
               <Icon name="search" />
               <input
                 className={styles.searchInput}
-                placeholder="Search products..."
+                placeholder="Buscar productos..."
                 type="text"
               />
             </div>
 
-            <Link to="/cart" className={styles.cartButton} aria-label="View cart">
+            <Link to="/cart" className={styles.cartButton} aria-label="Ver carrito">
               <Icon name="shopping_cart" />
               <span className={styles.cartBadge}>{totalQuantity}</span>
             </Link>

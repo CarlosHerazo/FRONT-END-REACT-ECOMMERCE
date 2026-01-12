@@ -57,25 +57,25 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
     const newErrors: Partial<Record<keyof CustomerData, string>> = {};
 
     if (!data.fullName.trim()) {
-      newErrors.fullName = 'Full name is required';
+      newErrors.fullName = 'El nombre completo es requerido';
     }
     if (!validateEmail(data.email)) {
-      newErrors.email = 'Invalid email address';
+      newErrors.email = 'Dirección de correo inválida';
     }
     if (!validatePhone(data.phone)) {
-      newErrors.phone = 'Invalid phone number';
+      newErrors.phone = 'Número de teléfono inválido';
     }
     if (!data.address.trim()) {
-      newErrors.address = 'Address is required';
+      newErrors.address = 'La dirección es requerida';
     }
     if (!data.city.trim()) {
-      newErrors.city = 'City is required';
+      newErrors.city = 'La ciudad es requerida';
     }
     if (!data.region.trim()) {
-      newErrors.region = 'Region is required';
+      newErrors.region = 'La región es requerida';
     }
     if (!data.country.trim()) {
-      newErrors.country = 'Country is required';
+      newErrors.country = 'El país es requerido';
     }
 
     setErrors(newErrors);
@@ -100,12 +100,12 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
 
   return (
     <div className={styles.customerDataForm}>
-      <h3 className={styles.formTitle}>Shipping Information</h3>
+      <h3 className={styles.formTitle}>Información de Envío</h3>
 
       <div className={styles.formFields}>
         <div className={styles.formGroup}>
           <label htmlFor="fullName" className={styles.formLabel}>
-            Full Name <span className={styles.required}>*</span>
+            Nombre Completo <span className={styles.required}>*</span>
           </label>
           <div className={styles.inputWrapper}>
             <Icon name="person" className={styles.inputIcon} />
@@ -129,7 +129,7 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="email" className={styles.formLabel}>
-              Email <span className={styles.required}>*</span>
+              Correo Electrónico <span className={styles.required}>*</span>
             </label>
             <div className={styles.inputWrapper}>
               <Icon name="mail" className={styles.inputIcon} />
@@ -152,7 +152,7 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
 
           <div className={styles.formGroup}>
             <label htmlFor="phone" className={styles.formLabel}>
-              Phone <span className={styles.required}>*</span>
+              Teléfono <span className={styles.required}>*</span>
             </label>
             <div className={styles.inputWrapper}>
               <Icon name="phone" className={styles.inputIcon} />
@@ -176,7 +176,7 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
 
         <div className={styles.formGroup}>
           <label htmlFor="address" className={styles.formLabel}>
-            Address <span className={styles.required}>*</span>
+            Dirección <span className={styles.required}>*</span>
           </label>
           <div className={styles.inputWrapper}>
             <Icon name="home" className={styles.inputIcon} />
@@ -200,7 +200,7 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="city" className={styles.formLabel}>
-              City <span className={styles.required}>*</span>
+              Ciudad <span className={styles.required}>*</span>
             </label>
             <div className={styles.inputWrapper}>
               <Icon name="location_city" className={styles.inputIcon} />
@@ -223,7 +223,7 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
 
           <div className={styles.formGroup}>
             <label htmlFor="region" className={styles.formLabel}>
-              Region <span className={styles.required}>*</span>
+              Región <span className={styles.required}>*</span>
             </label>
             <div className={styles.inputWrapper}>
               <Icon name="map" className={styles.inputIcon} />
@@ -248,7 +248,7 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
         <div className={styles.formRow}>
           <div className={styles.formGroup}>
             <label htmlFor="country" className={styles.formLabel}>
-              Country <span className={styles.required}>*</span>
+              País <span className={styles.required}>*</span>
             </label>
             <div className={styles.inputWrapper}>
               <Icon name="public" className={styles.inputIcon} />
@@ -274,7 +274,7 @@ export const CustomerDataForm: React.FC<CustomerDataFormProps> = ({
 
           <div className={styles.formGroup}>
             <label htmlFor="postalCode" className={styles.formLabel}>
-              Postal Code
+              Código Postal
             </label>
             <div className={styles.inputWrapper}>
               <Icon name="markunread_mailbox" className={styles.inputIcon} />

@@ -18,7 +18,7 @@ export function TransactionsPage() {
     e.preventDefault();
 
     if (!email.trim()) {
-      setError('Please enter an email address');
+      setError('Por favor ingresa una dirección de correo electrónico');
       return;
     }
 
@@ -31,12 +31,12 @@ export function TransactionsPage() {
       setTransactions(results);
 
       if (results.length === 0) {
-        showInfo(`No transactions found for ${email}`);
+        showInfo(`No se encontraron transacciones para ${email}`);
       } else {
-        showSuccess(`Found ${results.length} transaction${results.length > 1 ? 's' : ''}`);
+        showSuccess(`Se encontraron ${results.length} transacción${results.length > 1 ? 'es' : ''}`);
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch transactions';
+      const errorMessage = err instanceof Error ? err.message : 'Error al obtener las transacciones';
       setError(errorMessage);
       showError(errorMessage);
       setTransactions([]);
@@ -49,9 +49,9 @@ export function TransactionsPage() {
   return (
     <div className={`container ${styles.transactionsPage}`}>
       <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Transaction History</h1>
+        <h1 className={styles.pageTitle}>Historial de Transacciones</h1>
         <p className={styles.pageSubtitle}>
-          Search and view transaction details by customer email
+          Busca y visualiza los detalles de transacciones por correo del cliente
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export function TransactionsPage() {
                   setEmail(e.target.value);
                   if (error) setError('');
                 }}
-                placeholder="Enter customer email address"
+                placeholder="Ingresa el correo del cliente"
                 className={styles.searchInput}
                 disabled={isLoading}
               />
@@ -81,12 +81,12 @@ export function TransactionsPage() {
               {isLoading ? (
                 <>
                   <span className={styles.spinner}></span>
-                  Searching...
+                  Buscando...
                 </>
               ) : (
                 <>
                   <Icon name="search" />
-                  Search Transactions
+                  Buscar Transacciones
                 </>
               )}
             </button>
@@ -107,34 +107,34 @@ export function TransactionsPage() {
             <div className={styles.emptyIcon}>
               <Icon name="search" />
             </div>
-            <h3 className={styles.emptyTitle}>Search for Transactions</h3>
+            <h3 className={styles.emptyTitle}>Buscar Transacciones</h3>
             <p className={styles.emptyDescription}>
-              Enter a customer email address to view their transaction history
+              Ingresa el correo de un cliente para ver su historial de transacciones
             </p>
           </div>
         ) : isLoading ? (
           <div className={styles.loadingState}>
             <span className={styles.spinner}></span>
-            <p>Loading transactions...</p>
+            <p>Cargando transacciones...</p>
           </div>
         ) : transactions.length === 0 ? (
           <div className={styles.emptyState}>
             <div className={styles.emptyIcon}>
               <Icon name="inbox" />
             </div>
-            <h3 className={styles.emptyTitle}>No Transactions Found</h3>
+            <h3 className={styles.emptyTitle}>No se Encontraron Transacciones</h3>
             <p className={styles.emptyDescription}>
-              No transactions found for <strong>{email}</strong>
+              No se encontraron transacciones para <strong>{email}</strong>
             </p>
           </div>
         ) : (
           <>
             <div className={styles.resultsHeader}>
               <h2 className={styles.resultsTitle}>
-                Transactions for {email}
+                Transacciones para {email}
               </h2>
               <span className={styles.resultsCount}>
-                {transactions.length} transaction{transactions.length > 1 ? 's' : ''}
+                {transactions.length} transacción{transactions.length > 1 ? 'es' : ''}
               </span>
             </div>
 

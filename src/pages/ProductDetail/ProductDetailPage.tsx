@@ -30,7 +30,7 @@ export const ProductDetailPage = () => {
       }));
     }
 
-    showSuccess(`${quantity} x ${product.name} added to cart!`);
+    showSuccess(`¡${quantity} x ${product.name} agregado al carrito!`);
   };
 
   const handleBuyNow = (_productId: string) => {
@@ -48,7 +48,7 @@ export const ProductDetailPage = () => {
       }));
     }
 
-    showInfo('Redirecting to cart...');
+    showInfo('Redirigiendo al carrito...');
 
     // Navigate to cart page
     setTimeout(() => {
@@ -82,13 +82,13 @@ export const ProductDetailPage = () => {
     return (
       <div className={styles.container}>
         <div className={styles.errorContainer}>
-          <h2 className={styles.errorTitle}>Error loading product</h2>
+          <h2 className={styles.errorTitle}>Error al cargar el producto</h2>
           <p className={styles.errorMessage}>{error.message}</p>
           <button
             onClick={() => navigate('/')}
             className={styles.errorButton}
           >
-            Back to Home
+            Volver al Inicio
           </button>
         </div>
       </div>
@@ -99,15 +99,15 @@ export const ProductDetailPage = () => {
     return (
       <div className={styles.container}>
         <div className={styles.notFoundContainer}>
-          <h2 className={styles.notFoundTitle}>Product not found</h2>
+          <h2 className={styles.notFoundTitle}>Producto no encontrado</h2>
           <p className={styles.notFoundMessage}>
-            The product you're looking for doesn't exist.
+            El producto que buscas no existe.
           </p>
           <button
             onClick={() => navigate('/')}
             className={styles.notFoundButton}
           >
-            Back to Home
+            Volver al Inicio
           </button>
         </div>
       </div>

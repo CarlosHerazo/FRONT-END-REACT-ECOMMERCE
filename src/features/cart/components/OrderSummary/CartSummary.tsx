@@ -29,26 +29,26 @@ const CartSummary: React.FC<CartSummaryProps> = ({
 
   return (
     <div className={styles.cartSummary}>
-      <h2 className={styles.summaryTitle}>Order Summary</h2>
-      
+      <h2 className={styles.summaryTitle}>Resumen del Pedido</h2>
+
       <div className={styles.summaryDetails}>
         <div className={styles.summaryRow}>
           <span className={styles.rowLabel}>Subtotal</span>
           <span className={styles.rowValue}>{formatPrice(summary.subtotal)}</span>
         </div>
-        
+
         <div className={styles.summaryRow}>
-          <span className={styles.rowLabel}>Shipping</span>
+          <span className={styles.rowLabel}>Envío</span>
           <span className={`${styles.rowValue} ${isFreeShipping ? styles.freeShipping : ''}`}>
-            {isFreeShipping ? 'FREE' : formatPrice(summary.shipping)}
+            {isFreeShipping ? 'GRATIS' : formatPrice(summary.shipping)}
           </span>
         </div>
-        
+
         <div className={styles.summaryRow}>
-          <span className={styles.rowLabel}>Estimated Tax</span>
+          <span className={styles.rowLabel}>Impuesto Estimado</span>
           <span className={styles.rowValue}>{formatPrice(summary.tax)}</span>
         </div>
-        
+
         <div className={styles.totalRow}>
           <div className={styles.totalLabel}>
             <span className={styles.totalText}>Total</span>
@@ -64,9 +64,9 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         className={styles.checkoutButton}
         onClick={onCheckout}
         disabled={!onCheckout}
-        aria-label="Proceed to checkout"
+        aria-label="Proceder al pago"
       >
-        <span>Proceed to Checkout</span>
+        <span>Proceder al Pago</span>
         <Icon name="arrow_forward" />
       </button>
 
@@ -75,18 +75,18 @@ const CartSummary: React.FC<CartSummaryProps> = ({
           <input
             className={styles.promoInput}
             type="text"
-            placeholder="Promo code"
+            placeholder="Código promocional"
             value={promoCode}
             onChange={(e) => setPromoCode(e.target.value)}
             onKeyPress={handleKeyPress}
-            aria-label="Enter promo code"
+            aria-label="Ingresa código promocional"
           />
-          <button 
+          <button
             className={styles.promoButton}
             onClick={handleApplyPromo}
             disabled={!promoCode.trim()}
           >
-            Apply
+            Aplicar
           </button>
         </div>
       </div>

@@ -15,41 +15,41 @@ const Footer: React.FC = () => {
               <h2 className={styles.brandName}>ShopHerazo</h2>
             </div>
             <p className={styles.brandDescription}>
-              High-quality minimalist goods for the modern professional.
-              Designed with precision and crafted for durability.
+              Productos minimalistas de alta calidad para el profesional moderno.
+              Diseñados con precisión y elaborados para la durabilidad.
             </p>
           </div>
 
           <div className={styles.linksSection}>
-            <h4 className={styles.linksTitle}>Shop</h4>
+            <h4 className={styles.linksTitle}>Tienda</h4>
             <ul className={styles.linksList}>
-              <li><a href="#">All Products</a></li>
-              <li><a href="#">Categories</a></li>
-              <li><a href="#">New Arrivals</a></li>
-              <li><a href="#">Discounts</a></li>
+              <li><a href="#">Todos los Productos</a></li>
+              <li><a href="#">Categorías</a></li>
+              <li><a href="#">Nuevos Productos</a></li>
+              <li><a href="#">Descuentos</a></li>
             </ul>
           </div>
 
           <div className={styles.linksSection}>
-            <h4 className={styles.linksTitle}>Support</h4>
+            <h4 className={styles.linksTitle}>Soporte</h4>
             <ul className={styles.linksList}>
-              <li><a href="#">Order Tracking</a></li>
-              <li><a href="#">Returns & Refunds</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Seguimiento de Pedidos</a></li>
+              <li><a href="#">Devoluciones y Reembolsos</a></li>
+              <li><a href="#">Contáctanos</a></li>
+              <li><a href="#">Política de Privacidad</a></li>
             </ul>
           </div>
         </div>
 
         <div className={styles.footerBottom}>
           <p className={styles.copyright}>
-            © 2024 ShopHerazo Inc. All rights reserved.
+            © 2024 ShopHerazo Inc. Todos los derechos reservados.
           </p>
           <div className={styles.socialLinks}>
-            <a href="#" aria-label="Website">
+            <a href="#" aria-label="Sitio web">
               <Icon name="language" />
             </a>
-            <a href="#" aria-label="Share">
+            <a href="#" aria-label="Compartir">
               <Icon name="share" />
             </a>
           </div>

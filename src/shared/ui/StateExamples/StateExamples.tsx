@@ -28,14 +28,14 @@ const StateExamples: React.FC<StateExamplesProps> = ({
       <div className={styles.container}>
         <h2 className={styles.title}>
           <Icon name="analytics" />
-          Loading Products...
+          Cargando Productos...
         </h2>
 
         <div className={styles.examplesGrid}>
          { 
           Array.from({ length: 6 }).map((_, index) => (
             <div key={index} className={styles.exampleSection}>
-              <div className={styles.sectionTitle}>Loading</div>
+              <div className={styles.sectionTitle}>Cargando</div>
                 <div className={styles.skeletonCard}>
                   <div className={`skeleton ${styles.skeletonImage}`} />
                   <div className={`skeleton ${styles.skeletonTextLarge}`} />
@@ -60,7 +60,7 @@ const StateExamples: React.FC<StateExamplesProps> = ({
     <div className={styles.container}>
       <h2 className={styles.title}>
         <Icon name="search_off" />
-        No Products Found
+        No se Encontraron Productos
       </h2>
 
       <div className={styles.examplesGrid}>
@@ -69,35 +69,35 @@ const StateExamples: React.FC<StateExamplesProps> = ({
             <Icon name="search_off" />
           </div>
           <h4 className={styles.emptyStateTitle}>
-            {activeCategory && activeCategory !== 'All Items' 
-              ? `No products in "${activeCategory}"`
+            {activeCategory && activeCategory !== 'Todos los artículos'
+              ? `No hay productos en "${activeCategory}"`
               : searchQuery
-              ? `No results for "${searchQuery}"`
-              : 'No products found'}
+              ? `No hay resultados para "${searchQuery}"`
+              : 'No se encontraron productos'}
           </h4>
           <p className={styles.emptyStateText}>
-            {activeCategory && activeCategory !== 'All Items'
-              ? `We couldn't find any products in the ${activeCategory} category.`
+            {activeCategory && activeCategory !== 'Todos los artículos'
+              ? `No pudimos encontrar productos en la categoría ${activeCategory}.`
               : searchQuery
-              ? 'Try adjusting your search terms or browse all products.'
-              : 'Try adjusting your filters or search terms to find what you\'re looking for.'}
+              ? 'Intenta ajustar tus términos de búsqueda o navegar por todos los productos.'
+              : 'Intenta ajustar tus filtros o términos de búsqueda para encontrar lo que buscas.'}
           </p>
           <div className={styles.emptyStateActions}>
-            <button 
+            <button
               className={styles.clearFiltersButton}
               onClick={onClearFilters}
             >
-              Clear all filters
+              Limpiar todos los filtros
             </button>
             {searchQuery && (
-              <button 
+              <button
                 className={styles.browseAllButton}
                 onClick={() => {
                   // Esto podría ser otra función para limpiar la búsqueda
                   onClearFilters();
                 }}
               >
-                Browse all products
+                Ver todos los productos
               </button>
             )}
           </div>

@@ -41,7 +41,7 @@ export const CartPage = () => {
         console.log('Datos del cliente encontrado:', customers);
         if (customers) {
           customerData = customers;
-          showInfo(`Welcome back, ${customers.fullName}!`);
+          showInfo(`¡Bienvenido de nuevo, ${customers.fullName}!`);
         }
       } else if (newCustomerData) {
         // Nuevo cliente - crear en el backend
@@ -55,7 +55,7 @@ export const CartPage = () => {
           postalCode: newCustomerData.postalCode
         });
         customerData = createdClient;
-        showSuccess(`Account created successfully! Welcome, ${newCustomerData.fullName}!`);
+        showSuccess(`¡Cuenta creada exitosamente! ¡Bienvenido, ${newCustomerData.fullName}!`);
       }
 
       // Navegar al checkout pasando los datos del cliente
@@ -68,7 +68,7 @@ export const CartPage = () => {
       }
     } catch (error) {
       console.error('Error handling customer:', error);
-      showError('There was an error processing your request. Please try again.');
+      showError('Hubo un error al procesar tu solicitud. Por favor, intenta de nuevo.');
     }
   };
   const calculateSummary = (): CartSummaryType => {
@@ -116,14 +116,14 @@ export const CartPage = () => {
         {/* Page Header */}
         <div className={styles.pageHeader}>
           <h1 className={styles.pageTitle}>
-            Your Cart <span className={styles.itemsCount}>({summary.itemsCount} items)</span>
+            Tu Carrito <span className={styles.itemsCount}>({summary.itemsCount} artículos)</span>
           </h1>
           <button
             className={styles.continueShoppingButton}
             onClick={handleContinueShopping}
           >
             <Icon name="arrow_back" />
-            Continue Shopping
+            Continuar Comprando
           </button>
         </div>
 
@@ -145,13 +145,13 @@ export const CartPage = () => {
             ) : (
               <div className={styles.emptyCart}>
                 <Icon name="shopping_cart" />
-                <h3>Your cart is empty</h3>
-                <p>Add some items to get started</p>
+                <h3>Tu carrito está vacío</h3>
+                <p>Agrega algunos artículos para comenzar</p>
                 <button
                   className={styles.shopButton}
                   onClick={handleContinueShopping}
                 >
-                  Start Shopping
+                  Comenzar a Comprar
                 </button>
               </div>
             )}
