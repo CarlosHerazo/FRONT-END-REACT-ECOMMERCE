@@ -66,15 +66,20 @@
   text-decoration: none;
 }
 
-.logoIcon {
+.logoImg {
   width: 2rem;
   height: 2rem;
-  background-color: var(--color-primary);
+  object-fit: contain;
   border-radius: var(--radius-md);
+}
+.logoContent {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--color-border-light);
+  border-radius: var(--radius-md);
 }
 
 .logoText {
@@ -174,7 +179,6 @@
 
 .searchInput:focus {
   outline: none;
-  ring: 2px solid var(--color-primary);
 }
 
 .dark .searchInput {

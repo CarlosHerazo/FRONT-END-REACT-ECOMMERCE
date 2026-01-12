@@ -27,8 +27,8 @@ const Header: React.FC = () => {
             </button>
 
             <Link to="/" className={styles.logoSection}>
-              <div className={styles.logoIcon}>
-                <Icon name="shopping_bag" />
+              <div className={styles.logoContent}>
+                <img className={styles.logoImg} src="/logoShop.png" alt="" />
               </div>
               <h2 className={styles.logoText}>ShopHerazo</h2>
             </Link>

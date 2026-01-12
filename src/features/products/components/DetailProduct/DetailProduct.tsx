@@ -19,7 +19,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
   const [selectedImage, setSelectedImage] = useState<string>(product.imgUrl);
   const dispatch = useAppDispatch();
 
-  // Combinar imgUrl principal con images adicionales
   const allImages = React.useMemo(() => {
     // Filtrar imágenes válidas (no vacías ni undefined)
     const additionalImages = product.images?.filter(img => img && img.trim() !== '') || [];
@@ -33,17 +32,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     return [product.imgUrl];
   }, [product.imgUrl, product.images]);
 
-  // Debug: Verificar las imágenes del producto
-  useEffect(() => {
-    console.log('Product data:', product);
-    console.log('Product.images:', product.images);
-    console.log('All images computed:', allImages);
-  }, [product, allImages]);
 
   // Actualizar imagen seleccionada cuando cambie el producto
   useEffect(() => {
     setSelectedImage(product.imgUrl);
   }, [product.imgUrl]);
+  
   // Mock de opciones
   const storageOptions: StorageOption[] = [
     { capacity: 'option 1', price: 0 },

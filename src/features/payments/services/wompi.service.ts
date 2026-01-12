@@ -35,9 +35,6 @@ export class WompiService {
       this.environment = 'production';
       this.apiUrl = 'https://production.wompi.co/v1'; // Ambiente PRODUCCIÓN
     }
-
-    console.log(`Wompi Service initialized in ${this.environment.toUpperCase()} mode`);
-    console.log(`API URL: ${this.apiUrl}`);
   }
 
   async tokenizeCard(cardData: TokenizeCardParams): Promise<TokenizeCardResponse> {

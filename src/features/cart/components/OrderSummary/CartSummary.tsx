@@ -25,7 +25,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   };
 
 
-  const isFreeShipping = summary.shipping === 0;
+  const isFreeShipping = summary.subtotal > 20000;
 
   return (
     <div className={styles.cartSummary}>

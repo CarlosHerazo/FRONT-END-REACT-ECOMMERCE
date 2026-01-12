@@ -3,6 +3,7 @@ import { CustomerDataForm } from '../../features/checkout/components/CustomerDat
 import { OrderSummary } from '../../features/checkout/components/OrderSummary/OrderSummary';
 import { useCheckout } from '../../features/checkout/hooks/useCheckout';
 import Icon from '../../shared/ui/Icon';
+import { formatPrice } from '../../utils/utils';
 import styles from './CheckoutPage.module.css';
 
 export function CheckoutPage() {
@@ -147,7 +148,7 @@ export function CheckoutPage() {
               ) : (
                 <>
                   <Icon name="payment" />
-                  Realizar Pedido - ${summary.total.toFixed(2)}
+                  Realizar Pedido - ${formatPrice(summary.total)}
                 </>
               )}
             </button>

@@ -73,7 +73,7 @@ export const CartPage = () => {
   };
   const calculateSummary = (): CartSummaryType => {
     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = subtotal > 20000 ? 0 : 3000;
+    const shipping = subtotal > 20000 || cartItems.length === 0 ? 0 : 3000;
     const tax = subtotal * 0.08;
     const total = subtotal + shipping + tax;
 

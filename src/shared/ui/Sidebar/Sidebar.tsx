@@ -29,10 +29,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         <div className={styles.sidebarHeader}>
           <div className={styles.logoSection}>
-            <div className={styles.logoIcon}>
-              <Icon name="shopping_bag" />
-            </div>
-            <h2 className={styles.logoText}>ShopHerazo</h2>
+            <div className={styles.logoContent}>
+                <img className={styles.logoImg} src="/logoShop.png" alt="" />
+              </div>
+              <h2 className={styles.logoText}>ShopHerazo</h2>
           </div>
           <button
             className={styles.closeButton}
