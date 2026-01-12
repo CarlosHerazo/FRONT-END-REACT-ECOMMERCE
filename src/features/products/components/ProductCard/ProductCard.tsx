@@ -66,7 +66,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <div className={styles.priceCart}>
             {/* Formateamos el precio usando tu utilidad */}
             <span className={styles.price}>${formatPrice(product.price)}</span>
-            
+            {product.stock === 0 && (
+              <div>
+                <span className={`${styles.statusDot} ${product.stock > 0 ? styles.inStock : styles.outOfStock}`}></span>
+                <span className={styles.statusText}>Agotado</span>
+              </div>
+              
+              
+            )}
             {/* BOTÓN AGREGAR AL CARRITO */}
             <button
               className={styles.addToCartButton}

@@ -5,7 +5,9 @@
   overflow: hidden;
   transition: var(--transition-default);
 }
-
+.outOfStock {
+  background-color: var(--color-red);
+}
 .productCard:hover {
   transform: translateY(-0.25rem);
   box-shadow: var(--shadow-xl);
@@ -151,6 +153,26 @@
   font-weight: 900;
 }
 
+.addToCartButton:hover:not(:disabled) {
+  background-color: rgba(19, 127, 236, 0.05);
+}
+
+.buyNowButton:disabled,
+.addToCartButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.statusDot.outOfStock + .statusText {
+  color: var(--color-red);
+  font-size: 0.875rem;
+}
+.statusDot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+}
 .dark .price {
   color: var(--color-text-dark);
 }
