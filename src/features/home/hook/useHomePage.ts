@@ -3,6 +3,7 @@ import { useAppDispatch } from '../../../store/hooks';
 import { useToast } from '../../../shared/ui/Toast';
 import { useProducts } from '../../products';
 import { addItem } from '../../cart/store/cartSlice';
+import { CATEGORY_MAP } from '../constants/Constants';
 
 
 export const useHomePage = () => {
@@ -13,6 +14,8 @@ export const useHomePage = () => {
   const [activeCategory, setActiveCategory] = useState<string>('Todos los artículos');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
+
+
 
   // Detectar si se está filtrando
   useEffect(() => {
@@ -47,9 +50,12 @@ export const useHomePage = () => {
       resetFilters();
       setIsFiltering(false);
     } else {
-      filterByCategory(category);
+      const internalCategory = CATEGORY_MAP[category];
+      filterByCategory(internalCategory);
     }
   };
+
+
 
   const handleClearFilters = () => {
     setActiveCategory('Todos los artículos');
