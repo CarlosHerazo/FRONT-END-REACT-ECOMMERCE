@@ -5,7 +5,7 @@ import styles from './ProductCard.module.css';
 import Icon from '../../../../shared/ui/Icon';
 import { formatPrice } from '../../../../utils/utils';
 
-export const ProductCard: React.FC<ProductCardProps> = ({ 
+const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
   onAddToCart,
   onToggleFavorite,
@@ -83,3 +83,4 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     </Link>
   );
 };
+export default ProductCard;
