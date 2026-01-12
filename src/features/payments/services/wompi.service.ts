@@ -35,6 +35,10 @@ export class WompiService {
       this.environment = 'production';
       this.apiUrl = 'https://production.wompi.co/v1'; // Ambiente PRODUCCIÓN
     }
+    console.log(`Wompi environment set to: ${this.environment}`);
+    if (!this.publicKey) {
+      throw new Error('Wompi public key is not defined in environment variables.');
+    }
   }
 
   async tokenizeCard(cardData: TokenizeCardParams): Promise<TokenizeCardResponse> {
