@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { clearCart } from '../../cart/store/cartSlice';
+import { clearCart, clearPromo } from '../../cart/store/cartSlice';
 import { paymentService } from '../../payments/services/payment.service';
 import { wompiService } from '../../payments/services/wompi.service';
 import { useToast } from '../../../shared/ui/Toast';
@@ -166,6 +166,7 @@ export function useCheckout() {
 
         // Vaciar carrito
         dispatch(clearCart());
+        dispatch(clearPromo());
 
         // Mostrar toast de éxito
         showSuccessToast('¡Pago aprobado! Tu pedido fue realizado exitosamente.');
