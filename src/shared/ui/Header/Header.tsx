@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Icon from '../Icon';
 import Sidebar from '../Sidebar';
 import styles from './Header.module.css';
@@ -26,21 +26,34 @@ const Header: React.FC = () => {
               <Icon name="menu" />
             </button>
 
+            {/* Logo sí puede seguir siendo Link */}
             <Link to="/" className={styles.logoSection}>
               <div className={styles.logoContent}>
-                <img className={styles.logoImg} src="/logoShop.webp" alt="" />
+                <img className={styles.logoImg} src="/logoShop.webp" alt="ShopHerazo" />
               </div>
               <h2 className={styles.logoText}>ShopHerazo</h2>
             </Link>
           </div>
 
+          {/* NAV */}
           <nav className={styles.nav}>
-            <Link className={`${styles.navLink} ${styles.active}`} to="/products">
+            <NavLink
+              to="/products"
+              className={({ isActive }) =>
+                `${styles.navLink} ${isActive ? styles.active : ''}`
+              }
+            >
               Productos
-            </Link>
-            <Link className={styles.navLink} to="/transactions">
+            </NavLink>
+
+            <NavLink
+              to="/transactions"
+              className={({ isActive }) =>
+                `${styles.navLink} ${isActive ? styles.active : ''}`
+              }
+            >
               Transacciones
-            </Link>
+            </NavLink>
           </nav>
 
           <div className={styles.rightSection}>

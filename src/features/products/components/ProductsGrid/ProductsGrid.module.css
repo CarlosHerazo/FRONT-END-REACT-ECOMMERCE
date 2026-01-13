@@ -5,6 +5,18 @@
   margin-bottom: 4rem;
 }
 
+.productName {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;   /* 🔥 máximo 2 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
 @media (min-width: 640px) {
   .gridContainer {
     grid-template-columns: repeat(2, 1fr);
