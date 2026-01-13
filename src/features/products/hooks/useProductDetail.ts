@@ -29,6 +29,7 @@ export const useProductDetailPage = () => {
         price: product.price,
         imageUrl: product.imgUrl,
         description: product.description,
+        stock: product.stock,
       }));
     }
   };

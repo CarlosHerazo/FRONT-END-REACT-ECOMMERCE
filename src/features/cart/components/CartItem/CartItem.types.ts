@@ -6,6 +6,7 @@ export interface CartItemProps {
     price: number;
     quantity: number;
     imageUrl: string;
+    stock: number;
   };
   onUpdateQuantity: (id: string, quantity: number) => void;
   onRemove: (id: string) => void;

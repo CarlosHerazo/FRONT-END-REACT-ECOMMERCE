@@ -10,7 +10,9 @@ const CartItem: React.FC<CartItemProps> = ({
   onRemove 
 }) => {
   const handleIncrease = () => {
+    console.log(item.quantity, item.stock);
     onUpdateQuantity(item.id, item.quantity + 1);
+
   };
 
   const handleDecrease = () => {
@@ -54,6 +56,7 @@ const CartItem: React.FC<CartItemProps> = ({
             className={styles.quantityButton}
             onClick={handleIncrease}
             aria-label="Increase quantity"
+            disabled={item.quantity >= item.stock}
           >
             <Icon name="add" />
           </button>

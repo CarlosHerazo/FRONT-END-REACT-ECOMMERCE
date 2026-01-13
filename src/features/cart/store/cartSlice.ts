@@ -8,6 +8,7 @@ interface AddItemPayload {
   price: number;
   imageUrl: string;
   description?: string;
+  stock: number;
 }
 
 const initialState: CartState = {
@@ -32,6 +33,7 @@ const cartSlice = createSlice({
           ...newItem,
           quantity: 1,
           totalPrice: newItem.price,
+          stock: newItem.stock,
         });
       } else {
         existingItem.quantity++;

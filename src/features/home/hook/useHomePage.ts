@@ -32,6 +32,7 @@ export const useHomePage = () => {
         price: product.price,
         imageUrl: product.imgUrl,
         description: product.description,
+        stock: product.stock,
       }));
       showSuccess(`¡${product.name} agregado al carrito!`);
     }

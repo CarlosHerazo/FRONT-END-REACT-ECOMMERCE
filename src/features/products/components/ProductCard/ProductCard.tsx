@@ -24,8 +24,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     onToggleFavorite?.(product.id);
   };
 
-  console.log("STOTCK PRODUCTO:", product.stock);
-
   return (
     <Link 
       to={`/products/${product.id}`} 

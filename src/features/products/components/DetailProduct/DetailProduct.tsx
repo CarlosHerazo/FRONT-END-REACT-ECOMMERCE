@@ -67,7 +67,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
       sku: "SM-"+product.id,
       price: product.price,
       imageUrl: product.imgUrl,
-      description: product.description
+      description: product.description,
+      stock: product.stock,
     }));
     onAddToCart?.(product.id);
   };

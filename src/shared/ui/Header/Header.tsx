@@ -57,14 +57,6 @@ const Header: React.FC = () => {
           </nav>
 
           <div className={styles.rightSection}>
-            <div className={styles.searchContainer}>
-              <Icon name="search" />
-              <input
-                className={styles.searchInput}
-                placeholder="Buscar productos..."
-                type="text"
-              />
-            </div>
 
             <Link to="/cart" className={styles.cartButton} aria-label="Ver carrito">
               <Icon name="shopping_cart" />
