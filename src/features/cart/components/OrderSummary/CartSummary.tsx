@@ -4,10 +4,12 @@ import styles from './CartSummary.module.css';
 import Icon from '../../../../shared/ui/Icon';
 import { formatPrice } from '../../../../utils/utils';
 
-const CartSummary: React.FC<CartSummaryProps> = ({ 
-  summary, 
+const CartSummary: React.FC<CartSummaryProps> = ({
+  summary,
   onCheckout,
-  onApplyPromoCode 
+  onApplyPromoCode,
+  onRemovePromoCode,
+  isValidatingPromo = false,
 }) => {
   const [promoCode, setPromoCode] = useState('');
 
@@ -75,40 +77,52 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         <div className={styles.promoInfo}>
           {summary.discount && summary.discount > 0 ? (
             <div className={styles.appliedPromo}>
-              <span className={styles.textAppliedPromo}>Código "{summary.promoCode}" aplicado:</span>
-              <span className={styles.discountAmount}>
-                -{formatPrice(summary.discount)}
-              </span>
+              <div className={styles.appliedPromoInfo}>
+                <span className={styles.textAppliedPromo}>Código "{summary.promoCode}" aplicado:</span>
+                <span className={styles.discountAmount}>
+                  -{formatPrice(summary.discount)}
+                </span>
+              </div>
+              {onRemovePromoCode && (
+                <button
+                  className={styles.removePromoButton}
+                  onClick={onRemovePromoCode}
+                  aria-label="Quitar código promocional"
+                >
+                  <Icon name="close" />
+                </button>
+              )}
             </div>
           ) : (
             <div className={styles.promoPromptContainer}>
-             
               <span className={styles.promoPrompt}>
-                ¿Tienes un código promocional? APLICA:  <span className={styles.promoCode}>DESCUENTO10</span>
+                ¿Tienes un código promocional? aplica <span className={styles.promoCode}>DECUENTO10</span>
               </span>
-              
             </div>
           )}
         </div>
 
-        <div className={styles.promoInputWrapper}>
-          <input
-            className={styles.promoInput}
-            type="text"
-            placeholder="Código promocional"
-            value={promoCode}
-            onChange={(e) => setPromoCode(e.target.value)}
-            onKeyDown={handleKeyPress}
-            aria-label="Ingresa código promocional"
-          />
-          <button
-            className={styles.promoButton}
-            onClick={handleApplyPromo}
-            disabled={!promoCode.trim()}
-          >
-            Aplicar
-          </button>
-        </div>
+        {!(summary.discount && summary.discount > 0) && (
+          <div className={styles.promoInputWrapper}>
+            <input
+              className={styles.promoInput}
+              type="text"
+              placeholder="Código promocional"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+              onKeyDown={handleKeyPress}
+              aria-label="Ingresa código promocional"
+              disabled={isValidatingPromo}
+            />
+            <button
+              className={styles.promoButton}
+              onClick={handleApplyPromo}
+              disabled={!promoCode.trim() || isValidatingPromo}
+            >
+              {isValidatingPromo ? 'Validando...' : 'Aplicar'}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

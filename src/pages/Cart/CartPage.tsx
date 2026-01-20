@@ -22,11 +22,13 @@ export const CartPage = () => {
     summary,
     isEmailModalOpen,
     setIsEmailModalOpen,
+    isValidatingPromo,
     handleUpdateQuantity,
     handleRemoveItem,
     handleCheckout,
     handleContinueShopping,
     handleApplyPromoCode,
+    handleRemovePromoCode,
   } = useCartPage();
 
   const [_customerEmail, setCustomerEmail] = useState('');
@@ -106,6 +108,8 @@ export const CartPage = () => {
               summary={summary}
               onCheckout={cartItems.length ? handleCheckout : undefined}
               onApplyPromoCode={handleApplyPromoCode}
+              onRemovePromoCode={handleRemovePromoCode}
+              isValidatingPromo={isValidatingPromo}
             />
             <PaymentMethods />
             <EmailModal

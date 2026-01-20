@@ -16,6 +16,8 @@ export interface CartState {
   totalPrice: number;
   promoCode: string;
   discount: number;
+  discountCodeId: string;
+  discountPercentage: number;
 }
 
 export interface CartSummary {

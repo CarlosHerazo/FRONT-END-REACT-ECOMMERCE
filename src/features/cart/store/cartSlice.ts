@@ -17,6 +17,8 @@ const initialState: CartState = {
   totalPrice: 0,
   promoCode: '',
   discount: 0,
+  discountCodeId: '',
+  discountPercentage: 0,
 };
 
 const cartSlice = createSlice({
@@ -95,14 +97,18 @@ const cartSlice = createSlice({
       state.totalPrice = 0;
     },
 
-    applyPromo: (state, action: PayloadAction<{ promoCode: string; discount: number }>) => {
+    applyPromo: (state, action: PayloadAction<{ promoCode: string; discount: number; discountCodeId: string; discountPercentage: number }>) => {
       state.promoCode = action.payload.promoCode;
       state.discount = action.payload.discount;
+      state.discountCodeId = action.payload.discountCodeId;
+      state.discountPercentage = action.payload.discountPercentage;
     },
 
     clearPromo: (state) => {
       state.promoCode = '';
       state.discount = 0;
+      state.discountCodeId = '';
+      state.discountPercentage = 0;
     },
   },
 });

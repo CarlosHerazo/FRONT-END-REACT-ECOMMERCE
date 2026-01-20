@@ -25,13 +25,15 @@ export interface TokenizeCardResponse {
 export interface ProcessPaymentDto {
   customerId: string;
   customerEmail: string;
-  amountInCents: number;
-  currency: string;
+  products: {
+    productId: string;
+    quantity: number;
+  }[];
+  discountCodeId?: string;
   paymentMethod: {
     type: string;
     token: string;
     installments: number;
-    sandbox_status?: string;
   };
   customerFullName: string;
   customerPhoneNumber: string;
@@ -44,52 +46,24 @@ export interface ProcessPaymentDto {
     phoneNumber: string;
     postalCode?: string;
   };
-  metadata?: {
-    orderId?: string;
-    productIds?: string[];
-  };
-  products: {
-    productId : string;
-    quantity: number;
-  }[];
 }
 
 export interface ProcessPaymentResponse {
-  success: boolean;
-  transaction: {
-    id: string;
-    reference: string;
-    status: string;
-    amountInCents: number;
-    currency: string;
-    wompiTransactionId: string;
-    customerId: string;
-    customerEmail: string;
-    redirectUrl: string | null;
-    paymentLinkId: string | null;
-    createdAt: string;
-    updatedAt: string;
+  transactionId: string;
+  wompiTransactionId: string;
+  reference: string;
+  status: string;
+  priceBreakdown: {
+    subtotalInCents: number;
+    discountInCents: number;
+    totalInCents: number;
+    discountCode?: string;
   };
-  delivery: {
-    id: string;
-    transactionId: string;
-    customerName: string;
-    customerPhone: string;
-    address: {
-      addressLine1: string;
-      city: string;
-      region: string;
-      country: string;
-    };
-    status: string;
-    trackingNumber: string | null;
-    estimatedDeliveryDate: string;
-    actualDeliveryDate: string | null;
-    notes: string | null;
-    createdAt: string;
-    updatedAt: string;
+  info: {
+    message: string;
+    nextStep: string;
   };
-  message: string;
+  createdAt: string;
 }
 
 export interface AcceptanceTokensResponse {

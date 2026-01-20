@@ -10,4 +10,6 @@ export interface CartSummaryProps {
   };
   onCheckout?: () => void;
   onApplyPromoCode?: (code: string) => void;
+  onRemovePromoCode?: () => void;
+  isValidatingPromo?: boolean;
 }

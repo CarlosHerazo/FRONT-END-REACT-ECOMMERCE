@@ -29,7 +29,7 @@ export function useCheckout() {
 
   // Datos del carrito desde Redux
   const cartItems = useAppSelector((state) => state.cart.items);
-  const { discount = 0, promoCode = '' } = useAppSelector((state) => state.cart);
+  const { discount = 0, promoCode = '', discountCodeId = '' } = useAppSelector((state) => state.cart);
 
   // Estados del formulario
   const [cardData, setCardData] = useState<CreditCardData>({
@@ -78,7 +78,7 @@ export function useCheckout() {
   const calculateSummary = (): CheckoutSummary => {
     const subtotal = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
     const shipping = subtotal > 20000 || cartItems.length === 0 ? 0 : 3000;
-    const tax = subtotal * 0.02;
+    const tax = subtotal * 0.19;
     const currentDiscount = discount || 0;
     const total = Math.max(subtotal + shipping + tax - currentDiscount, 0);
 
@@ -107,8 +107,6 @@ export function useCheckout() {
     setError(null);
 
     try {
-      const summary = calculateSummary();
-
       // Paso 1: Tokenizar la tarjeta usando Wompi desde el frontend
       setProcessingStep('Validando información de la tarjeta con Wompi...');
       const [month, year] = cardData.expiry.split('/');
@@ -126,8 +124,11 @@ export function useCheckout() {
       const paymentResponse = await paymentService.processPayment({
         customerId: customerFromCart.id,
         customerEmail: customerData.email,
-        amountInCents: Math.round(summary.total * 100),
-        currency: 'COP',
+        products: cartItems.map((item) => ({
+          productId: item.id,
+          quantity: item.quantity,
+        })),
+        ...(discountCodeId && { discountCodeId }),
         paymentMethod: {
           type: 'CARD',
           token: tokenizeResponse.data.id,
@@ -143,23 +144,10 @@ export function useCheckout() {
           phoneNumber: customerData.phone,
           postalCode: customerData.postalCode,
         },
-        metadata: {
-          orderId: `ORDEN-${Date.now()}`,
-          productIds: cartItems.map((item) => item.id),
-        },
-        products: cartItems.map((item) => ({
-          productId: item.id,
-          quantity: item.quantity,
-        })),
       });
 
-      const isSuccess = paymentResponse.success
-        ? paymentResponse.transaction.status === 'APPROVED'
-        : (paymentResponse as any).status === 'APPROVED';
-
-      const transactionId = paymentResponse.success
-        ? paymentResponse.transaction.id
-        : (paymentResponse as any).transactionId;
+      const isSuccess = paymentResponse.status === 'APPROVED';
+      const transactionId = paymentResponse.transactionId;
 
       if (isSuccess) {
         setProcessingStep('¡Pago aprobado! Preparando tu pedido...');
