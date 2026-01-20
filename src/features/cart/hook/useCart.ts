@@ -89,12 +89,11 @@ export const useCartPage = () => {
       0
     );
 
-    const shipping = subtotal > 20000 || cartItems.length === 0 ? 0 : 3000;
-    const tax = subtotal * 0.19;
-
     const currentDiscount = discount || 0;
-    const totalBeforeDiscount = subtotal + shipping + tax;
-    const total = Math.max(totalBeforeDiscount - currentDiscount, 0);
+    const shipping = subtotal > 20000 || cartItems.length === 0 ? 0 : 3000;
+    const baseTotal = subtotal + shipping - currentDiscount;
+    const tax = baseTotal * 0.19;
+    const total = Math.max(baseTotal + tax, 0);
 
     return {
       subtotal,

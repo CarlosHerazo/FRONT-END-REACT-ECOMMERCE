@@ -62,7 +62,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
         </div>
 
         <div className={styles.summaryRow}>
-          <span className={styles.rowLabel}>Impuesto</span>
+          <span className={styles.rowLabel}>Impuesto estimado</span>
           <span className={styles.rowValue}>{formatPrice(tax)}</span>
         </div>
 

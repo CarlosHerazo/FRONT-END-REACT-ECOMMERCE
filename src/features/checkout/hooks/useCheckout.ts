@@ -77,10 +77,11 @@ export function useCheckout() {
    */
   const calculateSummary = (): CheckoutSummary => {
     const subtotal = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
-    const shipping = subtotal > 20000 || cartItems.length === 0 ? 0 : 3000;
-    const tax = subtotal * 0.19;
     const currentDiscount = discount || 0;
-    const total = Math.max(subtotal + shipping + tax - currentDiscount, 0);
+    const shipping = subtotal > 20000 || cartItems.length === 0 ? 0 : 3000;
+    const baseTotal = subtotal + shipping - currentDiscount;
+    const tax = baseTotal * 0.19;
+    const total = Math.max(baseTotal + tax, 0);
 
     return { subtotal, shipping, tax, total, discount: currentDiscount, promoCode };
   };
