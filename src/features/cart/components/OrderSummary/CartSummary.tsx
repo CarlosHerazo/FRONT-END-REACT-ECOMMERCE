@@ -96,7 +96,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
           ) : (
             <div className={styles.promoPromptContainer}>
               <span className={styles.promoPrompt}>
-                ¿Tienes un código promocional? aplica <span className={styles.promoCode}>DECUENTO10</span>
+                ¿Tienes un código promocional? aplica <span className={styles.promoCode}>DESCUENTO10</span>
               </span>
             </div>
           )}
